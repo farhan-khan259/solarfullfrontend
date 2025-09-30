@@ -1,0 +1,215 @@
+:root {
+    --primary-color: #2945ff;
+    --accent-color: #f9ac1e;
+    --bg-color: #f4f7fa;
+    --card-bg: #ffffff;
+    --blue-box: #2467f6;
+    --orange-box: #f89e2f;
+    --text-dark: #222;
+    --shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    --radius: 12px;
+}
+
+body {
+    background-color: var(--bg-color);
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: var(--text-dark);
+}
+
+.ranking-wrapper {
+    max-width: 1200px;
+    margin: auto;
+    padding: 16px;
+}
+
+/* Header */
+.ranking-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* center heading */
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.back-link {
+    position: absolute;
+    left: 0;
+    /* stick arrow to left edge */
+    color: var(--primary-color);
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+}
+
+.ranking-header h2 {
+    font-weight: 600;
+    font-size: 22px;
+    text-align: center;
+    flex: 1;
+}
+
+/* Grid */
+.ranking-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+/* Rank Card */
+.rank-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* Top Section */
+.rank-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.rank-top img {
+    width: 60px;
+    height: 60px;
+    border-radius: var(--radius);
+    object-fit: cover;
+}
+
+.rank-title h3 {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.current-pill {
+    background: #e4e4e4;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 12px;
+    margin-top: 4px;
+    display: inline-block;
+}
+
+/* Next Rank Goal */
+.next-goal {
+    background: var(--orange-box);
+    border-radius: var(--radius);
+    padding: 12px;
+    color: white;
+    margin-top: 8px;
+}
+
+.next-goal h4 {
+    font-size: 16px;
+    font-weight: bold;
+    color: #c5ff69;
+    margin-bottom: 10px;
+}
+
+.goal-boxes {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.blue-box {
+    background: var(--blue-box);
+    flex: 1;
+    padding: 10px;
+    border-radius: var(--radius);
+    font-size: 14px;
+    text-align: center;
+}
+
+.blue-box .needed {
+    font-size: 12px;
+    color: #ffdddd;
+    margin-top: 4px;
+}
+
+/* Current Investments */
+.current-investments {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.orange-box {
+    background: var(--orange-box);
+    flex: 1;
+    padding: 10px;
+    border-radius: var(--radius);
+    font-size: 14px;
+    color: white;
+    text-align: center;
+}
+
+.orange-box strong {
+    display: block;
+    margin-top: 4px;
+}
+
+/* Progress */
+.progress-section {
+    margin-top: 8px;
+}
+
+.progress-section p {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.next-pill {
+    background: #f3f3f3;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 2px 8px;
+    font-size: 12px;
+}
+
+.progress-bar {
+    background: #f0f0f0;
+    border-radius: 20px;
+    height: 16px;
+    position: relative;
+    margin: 10px 0;
+}
+
+.progress-fill {
+    background: linear-gradient(90deg, #ffe600, #f89e2f);
+    height: 100%;
+    border-radius: 20px;
+    transition: width 0.5s ease-in-out;
+}
+
+.progress-percent {
+    font-weight: bold;
+    font-size: 14px;
+    float: right;
+}
+
+/* Reward */
+.reward {
+    font-size: 14px;
+    color: #2467f6;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .ranking-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ranking-header h2 {
+        font-size: 20px;
+    }
+}

@@ -1,0 +1,162 @@
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1e1e2d;
+    color: #ffffff;
+    padding: 10px 20px;
+    height: 60px;
+    position: sticky;
+    top: 0;
+    z-index: 150;
+}
+
+.topbar-left h2 {
+    margin-left: 50px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.topbar-center {
+    flex: 1;
+    max-width: 400px;
+    margin: 0 20px;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+    border-radius: 6px;
+    padding: 5px 10px;
+}
+
+.search-box input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 6px;
+    font-size: 14px;
+    color: #333;
+}
+
+.search-icon {
+    color: #666;
+    margin-right: 8px;
+}
+
+.topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.topbar-icon {
+    font-size: 20px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.topbar-icon:hover {
+    color: #ccc;
+}
+
+.admin-profile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.admin-profile:hover {
+    opacity: 0.85;
+}
+
+.profile-icon {
+    font-size: 24px;
+}
+
+.admin-name {
+    font-weight: 500;
+    font-size: 15px;
+    white-space: nowrap;
+}
+
+/* ======= Responsive Adjustments ======= */
+
+/* Tablet view: shrink search bar and adjust gaps */
+@media (max-width: 992px) {
+    .topbar-center {
+        max-width: 250px;
+        margin: 0 10px;
+    }
+
+    .topbar-right {
+        gap: 12px;
+    }
+}
+
+/* Mobile view: hide name text, shrink icons, allow wrapping */
+@media (max-width: 768px) {
+    .topbar {
+        flex-wrap: wrap;
+        height: auto;
+        padding: 8px 12px;
+    }
+
+    .topbar-left h2 {
+        font-size: 18px;
+    }
+
+    .topbar-center {
+        order: 3;
+        flex: 1 1 100%;
+        max-width: 100%;
+        margin: 10px 0 0;
+    }
+
+    .search-box {
+        display: flex;
+        align-items: center;
+        background: #ffffff;
+        border-radius: 6px;
+        padding: 5px 10px;
+        margin: 0 auto;
+        width: 50%;
+    }
+
+    .hamburger-btn {
+
+        top: -2px;
+    }
+
+    .topbar-right {
+        gap: 10px;
+    }
+
+    .admin-name {
+        display: none;
+        /* hide name on small screens */
+    }
+
+    .topbar-icon {
+        font-size: 18px;
+    }
+}
+
+
+
+@media (max-width: 430px) {
+    .search-box {
+
+        width: 75%;
+    }
+}
+
+
+@media (max-width: 376px) {
+    .hamburger-btn {
+        left: 3px;
+    }
+}

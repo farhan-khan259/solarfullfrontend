@@ -1,0 +1,174 @@
+:root {
+    --primary-color: #2945ff;
+    --accent-color: #f9ac1e;
+    --bg-color: #f4f7fa;
+    --card-bg: #ffffff;
+    --text-dark: #222;
+    --text-light: #666;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    --radius: 12px;
+}
+
+.withdraw-container {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: var(--bg-color);
+    font-family: 'Segoe UI', sans-serif;
+    border-radius: var(--radius);
+}
+
+.headerwd {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 23px;
+    font-weight: bold;
+    color: var(--text-dark);
+    margin-bottom: 25px;
+}
+
+.back-linkwd {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.back-linkwd:hover {
+    color: #1d33c7;
+}
+
+.header-icon {
+    font-size: 24px;
+    color: var(--primary-color);
+}
+
+.balance-card-withdraw {
+    background-color: var(--card-bg);
+    padding: 20px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    display: flex;
+    justify-content: space-between;
+    align-items: left !important;
+    margin-bottom: 20px;
+    transition: transform 0.2s ease;
+}
+
+.balance-card-withdraw:hover {
+    transform: translateY(-2px);
+}
+
+.balance-label {
+    font-size: 18px;
+    color: var(--text-light);
+}
+
+.balance-amount {
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.balance-icon {
+    font-size: 28px;
+    color: var(--accent-color);
+}
+
+.step-card {
+    background-color: var(--card-bg);
+    padding: 20px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    transition: transform 0.2s ease;
+}
+
+.step-card:hover {
+    transform: translateY(-2px);
+}
+
+.step-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.status {
+    text-align: center;
+}
+
+.status-icon {
+    font-size: 40px;
+    color: var(--accent-color);
+    margin-bottom: 12px;
+}
+
+.status-text {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #f9ac1e;
+}
+
+.status-subtext {
+    font-size: 16px;
+    color: var(--text-light);
+    margin-bottom: 20px;
+}
+
+.bind-btn {
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.bind-btn a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.bind-btn:hover {
+    background-color: #1d33c7;
+}
+
+.btn-icon {
+    font-size: 16px;
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+    .bind-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+
+    .withdraw-container {
+        padding: 16px;
+        margin: 0px;
+    }
+}
+
+@media (max-width: 330px) {
+    .step-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--primary-color);
+        margin-bottom: 15px;
+    }
+}

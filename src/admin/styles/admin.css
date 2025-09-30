@@ -1,0 +1,151 @@
+.admin-container {
+    display: flex;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f4f5fa;
+}
+
+.admin-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #f4f5fa;
+}
+
+.admin-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.admin-layout {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+/* Dashboard Cards Grid */
+.dashboard-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Sections */
+.recent-section,
+.charts-section {
+    padding: 30px;
+    background: #fff;
+    border-radius: 12px;
+    margin: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive tables */
+.table-responsive {
+    overflow-x: auto;
+}
+
+.dashboard-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.dashboard-table th,
+.dashboard-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+.dashboard-table th {
+    background: #f8f8f8;
+    font-weight: 600;
+}
+
+/* --- Responsive Breakpoints --- */
+
+/* Tablets: stack sidebar vertically, reduce padding */
+@media (max-width: 992px) {
+    .admin-layout {
+        flex-direction: column;
+    }
+
+    .dashboard-cards {
+        justify-content: flex-start;
+        padding: 10px;
+    }
+
+    .recent-section,
+    .charts-section {
+        padding: 20px;
+        margin: 10px 0;
+    }
+}
+
+/* Mobile: make cards single column, sidebar collapsible */
+@media (max-width: 768px) {
+    .dashboard-cards {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .sidebar {
+        width: 150%;
+    }
+
+    .sidebar.collapsed {
+        width: 80px;
+        font-size: 1px;
+    }
+
+    .recent-section,
+    .charts-section {
+        padding: 15px;
+        margin: 8px 0;
+    }
+
+    .dashboard-table th,
+    .dashboard-table td {
+        padding: 8px;
+        font-size: 14px;
+    }
+}
+
+/* Extra small screens: shrink fonts, tighter layout */
+@media (max-width: 480px) {
+    .dashboard-cards {
+        padding: 8px;
+        gap: 10px;
+    }
+
+    .recent-section,
+    .charts-section {
+        padding: 10px;
+    }
+
+    .dashboard-table th,
+    .dashboard-table td {
+        font-size: 12px;
+        padding: 6px;
+    }
+}
+
+.dashboard-card {
+    padding: 16px;
+    border-radius: 8px;
+    font-weight: bold;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.dashboard-card h4 {
+    margin: 0 0 6px 0;
+    font-size: 16px;
+}
+
+.dashboard-card p {
+    margin: 0;
+    font-size: 20px;
+}

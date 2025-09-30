@@ -1,0 +1,68 @@
+.userdetails-container {
+    padding: 20px;
+}
+
+.userdetails-container h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #1e293b;
+}
+
+.user-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.08);
+    margin-bottom: 20px;
+}
+
+.user-card p {
+    font-size: 16px;
+    margin: 8px 0;
+    color: #333;
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.btn {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #fff;
+    font-weight: 600;
+    transition: 0.2s ease;
+}
+
+.btn.green {
+    background: #4caf50;
+}
+
+.btn.orange {
+    background: #ff9800;
+}
+
+.btn.red {
+    background: #f44336;
+}
+
+.btn.blue {
+    background: #2196f3;
+}
+
+.btn.yellow {
+    background: rgb(33, 9, 187);
+}
+
+.btn.purple {
+    background: #9c27b0;
+}
+
+.btn:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}

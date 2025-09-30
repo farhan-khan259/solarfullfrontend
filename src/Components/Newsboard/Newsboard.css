@@ -1,0 +1,44 @@
+.partners-section {
+    width: 100%;
+    padding: 60px 20px;
+    background: linear-gradient(to bottom, #2d0b52, #4b1d72);
+    color: white;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.partners-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+.partners-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 25px;
+    width: 100%;
+}
+
+.partner-box {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.partner-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.partner-box img {
+    max-height: 60px;
+    max-width: 100%;
+    object-fit: contain;
+}

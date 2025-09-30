@@ -1,0 +1,95 @@
+/* src/admin/styles/userprofilemodal.css */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.show {
+    opacity: 1;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 25px;
+    width: 400px;
+    border-radius: 10px;
+    position: relative;
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.3);
+    transform: scale(0.85);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.modal-content.slide-in {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.modal-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #555;
+}
+
+.modal-content h2 {
+    margin-bottom: 15px;
+    font-size: 20px;
+    color: #333;
+}
+
+.user-info p {
+    margin: 8px 0;
+    font-size: 14px;
+}
+
+.modal-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.btn-suspend {
+    background: #f44336;
+    color: white;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.btn-close {
+    background: #555;
+    color: white;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-suspend:hover,
+.btn-close:hover {
+    opacity: 0.85;
+}
+
+@media (max-width: 480px) {
+    .modal-content {
+        width: 90%;
+    }
+}

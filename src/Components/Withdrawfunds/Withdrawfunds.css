@@ -1,0 +1,237 @@
+:root {
+    --primary-color: #2945ff;
+    --accent-color: #f9ac1e;
+    --bg-color: #f4f7fa;
+    --card-bg: #ffffff;
+    --text-dark: #222;
+    --text-light: #666;
+    --shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+    --radius: 16px;
+}
+
+/* Container */
+.withdraw-container3 {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 550px;
+}
+
+/* Header (arrow left + centered title) */
+.withdraw-header3 {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.withdraw-header3 .back-icon3 {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary-color);
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.title3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--text-dark);
+}
+
+/* Balance Box */
+.balance-card3 {
+    background-color: var(--card-bg);
+    box-shadow: var(--shadow);
+    padding: 20px;
+    border-radius: var(--radius);
+    margin-bottom: 20px;
+}
+
+.balance-amount3 {
+    color: var(--primary-color);
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+/* Default Card (blue) */
+.card3 {
+    background-color: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 24px;
+    margin-bottom: 22px;
+    border-left: 6px solid var(--primary-color);
+}
+
+/* Accent Card (orange) */
+.green-card3 {
+    background-color: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 24px;
+    margin-bottom: 22px;
+    border-left: 6px solid var(--accent-color);
+}
+
+/* Error Card (red) */
+.error-card3 {
+    background-color: #fff8f8;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    color: #ff4a4a;
+    padding: 24px;
+    margin-bottom: 22px;
+    border-left: 6px solid #ff4a4a;
+}
+
+.error-title3 {
+    color: #ff4a4a;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+/* Titles & Labels inside Cards */
+.step-title3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.success-status3 {
+    color: var(--accent-color);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.account-info3 {
+    background: #f8f5d9;
+    border-radius: var(--radius);
+    padding: 15px;
+    color: var(--text-dark);
+    margin-top: 10px;
+}
+
+.available-btn3 {
+    font-weight: 600;
+    color: var(--accent-color);
+    background: #fdf4e9;
+    padding: 8px 16px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 8px;
+}
+
+.alert3 {
+    background: #fff0e0;
+    padding: 10px;
+    color: #d17a00;
+    font-size: 0.95rem;
+    margin: 10px 0;
+    border-radius: var(--radius);
+}
+
+/* Input & Submit */
+.amount-input3 {
+    width: 100%;
+    padding: 10px;
+    border-radius: var(--radius);
+    border: 1px solid #ccc;
+    margin-top: 5px;
+    font-size: 1rem;
+}
+
+.amount-input3::-webkit-inner-spin-button,
+.amount-input3::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+
+.amount-input3[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.submit-btn3 {
+    width: 100%;
+    background: var(--primary-color);
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: var(--radius);
+    font-weight: bold;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+/* Popup / Modal (reused from deposit) */
+.deposit-success-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.deposit-success-box {
+    background: #ffffff;
+    width: 90%;
+    max-width: 360px;
+    padding: 28px;
+    border-radius: var(--radius);
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.deposit-success-box h2 {
+    color: var(--primary-color);
+    margin-bottom: 12px;
+}
+
+.deposit-success-box p {
+    color: var(--text-dark);
+    margin-bottom: 18px;
+}
+
+.deposit-success-box button {
+    background: var(--primary-color);
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+
+@media screen and (max-width: 380px) {
+    .step-title3 {
+        font-size: 1rem;
+    }
+}
+
+
+@media screen and (max-width: 330px) {
+    .step-title3 {
+        font-size: 13px;
+    }
+
+    .success-status3 {
+        font-size: 15px;
+    }
+}

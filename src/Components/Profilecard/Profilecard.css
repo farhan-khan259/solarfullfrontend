@@ -1,0 +1,195 @@
+:root {
+    --primary-color: #2945ff;
+    --accent-color: #f9ac1e;
+    --bg-color: #f4f7fa;
+    --card-bg: #ffffff;
+    --text-dark: #222;
+    --text-light: #666;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    --radius: 12px;
+}
+
+/* Reset box-sizing */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Center the whole card */
+.profile-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--bg-color);
+    min-height: 100vh;
+}
+
+/* Card styling */
+.profile-container {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 20px;
+    width: 450px;
+    height: 50vh;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+/* Top Header */
+.profile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.profile-title {
+    font-size: 20px;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.close-icon,
+.user-icon {
+    color: var(--accent-color);
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* Avatar Section */
+.avatar-section {
+    position: relative;
+    margin: 20px 0;
+}
+
+.avatar-circle {
+    width: 130px;
+    height: 125px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    margin: auto;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-icon {
+    font-size: 70px;
+    color: var(--card-bg);
+}
+
+.camera-icon {
+    color: var(--card-bg);
+    font-size: 28px;
+    position: absolute;
+    bottom: 3px;
+    right: 5px;
+    background: var(--primary-color);
+    padding: 5px;
+    border-radius: 50%;
+}
+
+/* Badge icon */
+.badge-icon {
+    position: absolute;
+    top: 10px;
+    right: calc(25% - 70px);
+    background: var(--primary-color);
+    color: white;
+    padding: 8px;
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    font-size: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.badge-icon svg {
+    margin-top: 4px;
+}
+
+/* UID Section */
+.uid-section {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.uid-label {
+    font-weight: bold;
+    font-size: 16px;
+    margin-right: 4px;
+}
+
+.uid-number {
+    font-size: 16px;
+    color: var(--primary-color);
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.copy-icon {
+    font-size: 14px;
+    color: var(--primary-color);
+    cursor: pointer;
+}
+
+/* Registration Date */
+.registration-date {
+    margin-top: 14px;
+    font-size: 14px;
+}
+
+.reg-label {
+    font-weight: bold;
+    color: var(--text-dark);
+}
+
+.reg-value {
+    color: var(--accent-color);
+    margin-left: 5px;
+    font-weight: bold;
+}
+
+/* About Link */
+.about-link {
+    display: block;
+    margin-top: 15px;
+    font-size: 15px;
+    color: var(--primary-color);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.about-link:hover {
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 400px) {
+    .profile-container {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .badge-icon {
+        position: absolute;
+        top: 10px;
+        right: calc(25% - 70px);
+        background: var(--primary-color);
+        color: white;
+        padding: 8px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        font-size: 35px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
