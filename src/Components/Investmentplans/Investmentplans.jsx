@@ -136,7 +136,7 @@ export default function Investmentplans() {
   useEffect(() => {
     const fetchTeamData = async () => {
       try {
-        const res = await axios.post("http://localhost:3005/team", { userId });
+        const res = await axios.post("https://be.solarx0.com/team", { userId });
         setTeamData(res.data);
       } catch (err) {
         console.error("Error fetching team data:", err);
@@ -150,7 +150,7 @@ export default function Investmentplans() {
     const fetchCountSubscribePlanName = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:3005/api/plans/countSubscribePlanName"
+          "https://be.solarx0.com/api/plans/countSubscribePlanName"
         );
         setSubscribers(res.data.plans);
       } catch (err) {
@@ -204,7 +204,7 @@ export default function Investmentplans() {
     setLoadingPlan(plan.name);
 
     try {
-      const response = await axios.post("http://localhost:3005/api/plans", {
+      const response = await axios.post("https://be.solarx0.com/api/plans", {
         user_id: userId,
         PlanName: plan.name,
         Investment: plan.amount,

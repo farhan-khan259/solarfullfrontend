@@ -20,7 +20,7 @@ export default function Activeplans() {
     // Fetch plan from backend
     const fetchPlan = async () => {
       try {
-        const res = await axios.get(`http://localhost:3005/api/plans/`, {
+        const res = await axios.get(`https://be.solarx0.com/api/plans/`, {
           params: { id },
         });
         if (res.data.success) {

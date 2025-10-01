@@ -74,7 +74,7 @@
 // 	useEffect(() => {
 // 		const fetchTeamData = async () => {
 // 			try {
-// 				const res = await axios.post("http://localhost:3005/team", { userId });
+// 				const res = await axios.post("https://be.solarx0.com/team", { userId });
 // 				setTeamData(res.data);
 // 			} catch (err) {
 // 				console.error("Error fetching team data:", err);
@@ -104,7 +104,7 @@
 // 		const fetchAnnouncements = async () => {
 // 			try {
 // 				const response = await fetch(
-// 					"http://localhost:3005/api/announcements1",
+// 					"https://be.solarx0.com/api/announcements1",
 // 					{
 // 						method: "POST",
 // 					}
@@ -416,7 +416,7 @@ export default function Dashboard() {
   const fetchTeamData = async () => {
     if (!userId) return;
     try {
-      const res = await axios.post("http://localhost:3005/team", { userId });
+      const res = await axios.post("https://be.solarx0.com/team", { userId });
       setTeamData(res.data);
     } catch (err) {
       console.error("Error fetching team data:", err);
@@ -459,7 +459,7 @@ export default function Dashboard() {
     const fetchAnnouncements = async () => {
       try {
         const response = await axios.post(
-          "http://localhost:3005/api/announcements1"
+          "https://be.solarx0.com/api/announcements1"
         );
         if (response.status === 200) {
           setAnnouncements(response.data.data || []);

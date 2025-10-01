@@ -38,7 +38,7 @@ export default function Signin() {
 
     // ✅ Otherwise use backend API
     try {
-      const res = await fetch("http://localhost:3005/api/login", {
+      const res = await fetch("https://be.solarx0.com/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),

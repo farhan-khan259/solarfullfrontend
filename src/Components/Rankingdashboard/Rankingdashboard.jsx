@@ -1,10 +1,11 @@
 // import { useState, useEffect } from "react";
+import axios from "axios";
 import { FaArrowLeft, FaGift } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import "./Rankingdashboard.css";
 
 // Tier images
+import { useEffect, useState } from "react";
 import starterImg from "../../Assets/Pictures/plan1.jpg";
 import legendImg from "../../Assets/Pictures/plan10.jpg";
 import bronzeImg from "../../Assets/Pictures/plan2.jpg";
@@ -15,7 +16,6 @@ import diamondImg from "../../Assets/Pictures/plan6.jpg";
 import masterImg from "../../Assets/Pictures/plan7.jpg";
 import grandmasterImg from "../../Assets/Pictures/plan8.jpg";
 import eliteImg from "../../Assets/Pictures/plan9.jpg";
-import { useEffect, useState } from "react";
 
 export default function Rankingdashboard() {
   const [userData, setUserData] = useState(null);
@@ -36,7 +36,7 @@ export default function Rankingdashboard() {
           return;
         }
 
-        const response = await axios.post(`http://localhost:3005/team`, {
+        const response = await axios.post(`https://be.solarx0.com/team`, {
           userId: userId,
         });
         setUserData(response.data);

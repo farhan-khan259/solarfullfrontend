@@ -35,7 +35,7 @@ export default function Settings() {
 
     const fetchTeamData = async () => {
       try {
-        const res = await axios.post("http://localhost:3005/team", { userId });
+        const res = await axios.post("https://be.solarx0.com/team", { userId });
         setTeamData(res.data);
       } catch (err) {
         console.error("Error fetching team data:", err);
@@ -66,7 +66,7 @@ export default function Settings() {
         <img
           src={
             user?.profilepicture
-              ? `http://localhost:3005${user.profilepicture}`
+              ? `https://be.solarx0.com${user.profilepicture}`
               : profileImg
           }
           className="header-avatar"
@@ -89,7 +89,7 @@ export default function Settings() {
           <img
             src={
               user?.profilepicture
-                ? `http://localhost:3005${user.profilepicture}`
+                ? `https://be.solarx0.com${user.profilepicture}`
                 : profileImg
             }
             className="user-avatar"

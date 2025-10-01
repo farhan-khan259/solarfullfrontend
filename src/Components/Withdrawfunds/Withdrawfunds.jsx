@@ -46,7 +46,7 @@ const Withdrawfunds = () => {
 
     setLoading(true);
     try {
-      const res = await axios.post("http://localhost:3005/api/withdrawal", {
+      const res = await axios.post("https://be.solarx0.com/api/withdrawal", {
         userId: userId,
         withdrawals: Number(amount),
         bankName,

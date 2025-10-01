@@ -20,7 +20,7 @@ const Promocodepage = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3005/api/promoCode/apply",
+        "https://be.solarx0.com/api/promoCode/apply",
         {
           code: promoCode,
           userId: userId,

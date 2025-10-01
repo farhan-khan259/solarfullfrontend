@@ -30,7 +30,7 @@ export default function Forgetpassword() {
     setLoading(true);
     try {
       const res = await axios.post(
-        "http://localhost:3005/api/forgetpassword",
+        "https://be.solarx0.com/api/forgetpassword",
         { email: trimmedEmail },
         { headers: { "Content-Type": "application/json" } }
       );
@@ -77,7 +77,7 @@ export default function Forgetpassword() {
     setLoading(true);
     try {
       const res = await axios.post(
-        "http://localhost:3005/api/resetpassword",
+        "https://be.solarx0.com/api/resetpassword",
         {
           email: trimmedEmail,
           resetcode: trimmedCode,

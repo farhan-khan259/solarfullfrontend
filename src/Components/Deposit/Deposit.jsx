@@ -92,7 +92,7 @@ export default function Deposit() {
       formData.append("payment_method", selectedMethod);
       formData.append("screenshot", imageFile);
 
-      const response = await fetch("http://localhost:3005/api/deposit", {
+      const response = await fetch("https://be.solarx0.com/api/deposit", {
         method: "POST",
         body: formData,
         // Note: Don't set Content-Type header when using FormData

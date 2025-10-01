@@ -12,7 +12,7 @@ export default function CompletedWithdrawals() {
   useEffect(() => {
     const fetchWithdrawals = async () => {
       try {
-        const res = await axios.get("http://localhost:3005/api/payments");
+        const res = await axios.get("https://be.solarx0.com/api/payments");
         // ✅ backend returns { success, payments }
         setWithdrawals(res.data.data || []);
       } catch (error) {

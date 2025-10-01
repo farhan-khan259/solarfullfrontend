@@ -452,211 +452,218 @@
 //     </div>
 //   );
 // }
-import { useState, useEffect } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import "./Transactionhistory.css";
 
 export default function Transactionhistory() {
-	const [type, setType] = useState("deposit"); // deposit | withdraw | commission
-	const [status, setStatus] = useState("pending"); // deposit/withdraw
-	const [level, setLevel] = useState("directReferrals"); // commission: direct | indirect | extended
-	const [loading, setLoading] = useState(true);
-	const [teamData, setTeamData] = useState(null);
-	const userString = localStorage.getItem("user");
-	const user = JSON.parse(userString);
-	const userId = user?._id;
+  const [type, setType] = useState("deposit"); // deposit | withdraw | commission
+  const [status, setStatus] = useState("pending"); // deposit/withdraw
+  const [level, setLevel] = useState("directReferrals"); // commission: direct | indirect | extended
+  const [loading, setLoading] = useState(true);
+  const [teamData, setTeamData] = useState(null);
+  const userString = localStorage.getItem("user");
+  const user = JSON.parse(userString);
+  const userId = user?._id;
 
-	// ✅ Fetch API
-	useEffect(() => {
-		const fetchTeamData = async () => {
-			try {
-				const res = await axios.post("http://localhost:3005/team", {
-					userId: userId, // dynamic: replace with logged-in user
-				});
-				setTeamData(res.data);
-			} catch (error) {
-				console.error("Error fetching team data:", error);
-			} finally {
-				setLoading(false);
-			}
-		};
+  // ✅ Fetch API
+  useEffect(() => {
+    const fetchTeamData = async () => {
+      try {
+        const res = await axios.post("https://be.solarx0.com/team", {
+          userId: userId, // dynamic: replace with logged-in user
+        });
+        setTeamData(res.data);
+      } catch (error) {
+        console.error("Error fetching team data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-		fetchTeamData();
-	}, [userId]);
+    fetchTeamData();
+  }, [userId]);
 
-	if (!userId) {
-		return <div>Plz Login User </div>;
-	}
-	if (loading) return <p>Loading...</p>;
-	if (!teamData) return <p>No data available.</p>;
-	// ✅ Commission section (direct / indirect / extended)
-	const commissionLevels = {
-		directReferrals: "Level 1",
-		indirectReferrals: "Level 2",
-		extendedReferrals: "Level 3",
-	};
+  if (!userId) {
+    return <div>Plz Login User </div>;
+  }
+  if (loading) return <p>Loading...</p>;
+  if (!teamData) return <p>No data available.</p>;
+  // ✅ Commission section (direct / indirect / extended)
+  const commissionLevels = {
+    directReferrals: "Level 1",
+    indirectReferrals: "Level 2",
+    extendedReferrals: "Level 3",
+  };
 
-	// ✅ Payments (deposit / withdraw)
-	const payments = teamData?.payment || [];
-	console.log(teamData.payment);
-	const depositPayments = payments.filter((p) => p.depositsAmount);
-	const withdrawPayments = payments.filter((p) => p.withdrawalsAmount);
-	console.log(depositPayments);
-	console.log(withdrawPayments);
+  // ✅ Payments (deposit / withdraw)
+  const payments = teamData?.payment || [];
+  console.log(teamData.payment);
+  const depositPayments = payments.filter((p) => p.depositsAmount);
+  const withdrawPayments = payments.filter((p) => p.withdrawalsAmount);
+  console.log(depositPayments);
+  console.log(withdrawPayments);
 
-	let transactionList = [];
-	if (type === "deposit") {
-		transactionList = depositPayments.filter((p) => {
-			if (status === "pending") return p.depositStatus === "pending";
-			if (status === "complete") return p.depositStatus === "approved";
-			if (status === "rejected") return p.depositStatus === "rejected";
-			return true;
-		});
-	} else if (type === "withdraw") {
-		transactionList = withdrawPayments.filter((p) => {
-			if (status === "pending") return p.withdrawalStatus === "pending";
-			if (status === "complete") return p.withdrawalStatus === "approved";
-			if (status === "rejected") return p.withdrawalStatus === "rejected";
-			return true;
-		});
-	}
+  let transactionList = [];
+  if (type === "deposit") {
+    transactionList = depositPayments.filter((p) => {
+      if (status === "pending") return p.depositStatus === "pending";
+      if (status === "complete") return p.depositStatus === "approved";
+      if (status === "rejected") return p.depositStatus === "rejected";
+      return true;
+    });
+  } else if (type === "withdraw") {
+    transactionList = withdrawPayments.filter((p) => {
+      if (status === "pending") return p.withdrawalStatus === "pending";
+      if (status === "complete") return p.withdrawalStatus === "approved";
+      if (status === "rejected") return p.withdrawalStatus === "rejected";
+      return true;
+    });
+  }
 
-	return (
-		<div className="transaction-container">
-			<div className="transaction-header">
-				<Link to="/setting" className="back-linkth">
-					<FaArrowLeft />
-				</Link>
-				<h2 className="transaction-title">Transaction History</h2>
-			</div>
+  return (
+    <div className="transaction-container">
+      <div className="transaction-header">
+        <Link to="/setting" className="back-linkth">
+          <FaArrowLeft />
+        </Link>
+        <h2 className="transaction-title">Transaction History</h2>
+      </div>
 
-			{/* Top Tabs */}
-			<div className="type-tabs">
-				<button
-					className={type === "deposit" ? "active" : ""}
-					onClick={() => setType("deposit")}>
-					Deposit History
-				</button>
-				<button
-					className={type === "withdraw" ? "active" : ""}
-					onClick={() => setType("withdraw")}>
-					Withdraw History
-				</button>
-				<button
-					className={type === "commission" ? "active" : ""}
-					onClick={() => setType("commission")}>
-					Commission History
-				</button>
-			</div>
+      {/* Top Tabs */}
+      <div className="type-tabs">
+        <button
+          className={type === "deposit" ? "active" : ""}
+          onClick={() => setType("deposit")}
+        >
+          Deposit History
+        </button>
+        <button
+          className={type === "withdraw" ? "active" : ""}
+          onClick={() => setType("withdraw")}
+        >
+          Withdraw History
+        </button>
+        <button
+          className={type === "commission" ? "active" : ""}
+          onClick={() => setType("commission")}
+        >
+          Commission History
+        </button>
+      </div>
 
-			{/* Status Tabs for deposit/withdraw */}
-			{type !== "commission" && (
-				<div className="status-tabs">
-					<button
-						className={status === "pending" ? "active" : ""}
-						onClick={() => setStatus("pending")}>
-						PENDING
-					</button>
-					<button
-						className={status === "complete" ? "active" : ""}
-						onClick={() => setStatus("complete")}>
-						COMPLETE
-					</button>
-					<button
-						className={status === "rejected" ? "active" : ""}
-						onClick={() => setStatus("rejected")}>
-						REJECTED
-					</button>
-				</div>
-			)}
+      {/* Status Tabs for deposit/withdraw */}
+      {type !== "commission" && (
+        <div className="status-tabs">
+          <button
+            className={status === "pending" ? "active" : ""}
+            onClick={() => setStatus("pending")}
+          >
+            PENDING
+          </button>
+          <button
+            className={status === "complete" ? "active" : ""}
+            onClick={() => setStatus("complete")}
+          >
+            COMPLETE
+          </button>
+          <button
+            className={status === "rejected" ? "active" : ""}
+            onClick={() => setStatus("rejected")}
+          >
+            REJECTED
+          </button>
+        </div>
+      )}
 
-			{/* Commission History */}
-			{type === "commission" && (
-				<div className="commission-section">
-					<div className="level-tabs">
-						{Object.keys(commissionLevels).map((key) => (
-							<button
-								key={key}
-								className={level === key ? "active" : ""}
-								onClick={() => setLevel(key)}>
-								{commissionLevels[key]}
-							</button>
-						))}
-					</div>
+      {/* Commission History */}
+      {type === "commission" && (
+        <div className="commission-section">
+          <div className="level-tabs">
+            {Object.keys(commissionLevels).map((key) => (
+              <button
+                key={key}
+                className={level === key ? "active" : ""}
+                onClick={() => setLevel(key)}
+              >
+                {commissionLevels[key]}
+              </button>
+            ))}
+          </div>
 
-					<div className="commission-box">
-						<h3>
-							Total Commission {commissionLevels[level]}:{" "}
-							<span className="total">
-								{teamData[level].totalCommission} PKR
-							</span>
-						</h3>
+          <div className="commission-box">
+            <h3>
+              Total Commission {commissionLevels[level]}:{" "}
+              <span className="total">
+                {teamData[level].totalCommission} PKR
+              </span>
+            </h3>
 
-						{teamData[level].members.map((rec, i) => (
-							<div key={i} className="commission-card">
-								<p>
-									<span className="blue">User Id:</span> {rec._id}
-								</p>
-								<p>
-									<span>Full Name:</span> {rec.fullName}
-								</p>
-								<p>
-									<span>Email:</span> {rec.email}
-								</p>
-								<p>
-									<span className="orange">Deposit Amount:</span>{" "}
-									{rec.payments.totalDeposit} PKR
-								</p>
-								<p>
-									<span className="pink">Withdrawal:</span>{" "}
-									{rec.payments.totalWithdrawal} PKR
-								</p>
-								<p>
-									<span className="green">Joined:</span>{" "}
-									{new Date(rec.createdAt).toLocaleString()}
-								</p>
-							</div>
-						))}
-					</div>
-				</div>
-			)}
+            {teamData[level].members.map((rec, i) => (
+              <div key={i} className="commission-card">
+                <p>
+                  <span className="blue">User Id:</span> {rec._id}
+                </p>
+                <p>
+                  <span>Full Name:</span> {rec.fullName}
+                </p>
+                <p>
+                  <span>Email:</span> {rec.email}
+                </p>
+                <p>
+                  <span className="orange">Deposit Amount:</span>{" "}
+                  {rec.payments.totalDeposit} PKR
+                </p>
+                <p>
+                  <span className="pink">Withdrawal:</span>{" "}
+                  {rec.payments.totalWithdrawal} PKR
+                </p>
+                <p>
+                  <span className="green">Joined:</span>{" "}
+                  {new Date(rec.createdAt).toLocaleString()}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
-			{/* Deposit/Withdraw History */}
-			{type !== "commission" && (
-				<>
-					{transactionList.length === 0 ? (
-						<p>No transactions available.</p>
-					) : (
-						transactionList.map((item, index) => (
-							<div key={index} className="transaction-card">
-								<h3>
-									{type === "withdraw" ? "Withdraw With" : "Deposit With"}{" "}
-									{item.payment_method}
-								</h3>
-								<p>
-									<span>Amount:</span>{" "}
-									{item.depositsAmount || item.withdrawalsAmount} PKR
-								</p>
-								{item.depositStatus && (
-									<p>
-										<span>Status:</span> {item.depositStatus}
-									</p>
-								)}
-								{item.withdrawalStatus && (
-									<p>
-										<span>Status:</span> {item.withdrawalStatus}
-									</p>
-								)}
-								<p>
-									<span>Date:</span> {new Date(item.createdAt).toLocaleString()}
-								</p>
-							</div>
-						))
-					)}
-				</>
-			)}
-		</div>
-	);
+      {/* Deposit/Withdraw History */}
+      {type !== "commission" && (
+        <>
+          {transactionList.length === 0 ? (
+            <p>No transactions available.</p>
+          ) : (
+            transactionList.map((item, index) => (
+              <div key={index} className="transaction-card">
+                <h3>
+                  {type === "withdraw" ? "Withdraw With" : "Deposit With"}{" "}
+                  {item.payment_method}
+                </h3>
+                <p>
+                  <span>Amount:</span>{" "}
+                  {item.depositsAmount || item.withdrawalsAmount} PKR
+                </p>
+                {item.depositStatus && (
+                  <p>
+                    <span>Status:</span> {item.depositStatus}
+                  </p>
+                )}
+                {item.withdrawalStatus && (
+                  <p>
+                    <span>Status:</span> {item.withdrawalStatus}
+                  </p>
+                )}
+                <p>
+                  <span>Date:</span> {new Date(item.createdAt).toLocaleString()}
+                </p>
+              </div>
+            ))
+          )}
+        </>
+      )}
+    </div>
+  );
 }
