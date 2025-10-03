@@ -1,13 +1,12 @@
-// src/admin/pages/UserList.jsx
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { FaEdit, FaEye, FaSync, FaTrash } from "react-icons/fa";
+import { useState, useEffect } from "react";
+import { FaEdit, FaEye, FaTrash, FaSync } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Sidebar from "../../components/Sidebar";
 import Topbar from "../../components/Topbar";
 import "../../styles/admin.css";
 import "../../styles/userlist.css";
 import UserProfileModal from "./UserProfileModal";
+import axios from "axios";
 
 export default function UserList() {
   const [users, setUsers] = useState([]);

@@ -1,5 +1,4 @@
 // Partners.js
-import React from "react";
 import "./Newsboard.css";
 
 // Import your local images (replace paths with yours later)
@@ -9,7 +8,7 @@ import bybit from "../../Assets/Pictures/Bybit.svg";
 import coinbase from "../../Assets/Pictures/Coinbase New 2021.svg";
 import crypto from "../../Assets/Pictures/crypto-com-coin-cro-logo.png";
 import kraken from "../../Assets/Pictures/Kraken Icon.png";
-import kucoin from "../../Assets/Pictures/KuCoin Symbol.svg";
+
 import okx from "../../Assets/Pictures/OKX Blockdream Ventures.png";
 import uniswap from "../../Assets/Pictures/uniswap-uni-logo.png";
 
@@ -22,7 +21,6 @@ const partners = [
   { name: "Kraken", logo: kraken },
   { name: "OKX", logo: okx },
   { name: "Binance", logo: binance },
-  { name: "KuCoin", logo: kucoin },
 ];
 
 export default function Newsboard() {

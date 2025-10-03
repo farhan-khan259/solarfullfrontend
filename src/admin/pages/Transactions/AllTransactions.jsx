@@ -1,4 +1,3 @@
-// src/admin/pages/Transactions/AllTransactions.jsx
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Sidebar from "../../components/Sidebar";
@@ -28,6 +27,7 @@ export default function AllTransactions() {
     fetchTransactions();
   }, []);
 
+  console.log(transactions);
   if (loading) {
     return (
       <div className="admin-layout">
@@ -62,15 +62,32 @@ export default function AllTransactions() {
               </thead>
               <tbody>
                 {transactions.map((t) => (
-                  <tr key={t.id}>
+                  <tr key={t._id}>
                     <td data-label="ID">{t._id}</td>
+
+                    {/* 1. TYPE: Determine if it's a Deposit or Withdrawal based on which status field exists */}
                     <td data-label="Type">
                       {t.depositStatus ? "Deposit" : "Withdrawal"}
                     </td>
+
                     <td data-label="UID">{t.user_id}</td>
-                    <td data-label="Amount">PKR {t.deposits}</td>
+
+                    {/* 2. AMOUNT: Display the amount based on the transaction type */}
+                    <td data-label="Amount">
+                      PKR{" "}
+                      {
+                        t.depositStatus // Is it a Deposit?
+                          ? Number(t.depositsAmount).toLocaleString() || 0 // If Yes, show depositsAmount
+                          : Number(t.withdrawalsAmount).toLocaleString() || 0 // If No (must be Withdrawal), show withdrawalsAmount
+                      }
+                    </td>
+
                     <td data-label="Date">{t.createdAt}</td>
-                    <td data-label="Status">{t.depositStatus}</td>
+
+                    {/* 3. STATUS: Display the relevant status (Deposit or Withdrawal) */}
+                    <td data-label="Status">
+                      {t.depositStatus || t.withdrawalStatus}
+                    </td>
                   </tr>
                 ))}
                 {transactions.length === 0 && (

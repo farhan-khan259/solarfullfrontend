@@ -9,29 +9,18 @@ const Withdraw = () => {
   const [error, setError] = useState("");
   const [hasBoundAccount, setHasBoundAccount] = useState(false);
   const [accountDetails, setAccountDetails] = useState(null);
+  const [userBalance, setUserBalance] = useState(0);
+
   const navigate = useNavigate();
 
-  // Get user ID from localStorage
+  // ✅ Get user ID from localStorage
   const userString = localStorage.getItem("user");
   const user = userString ? JSON.parse(userString) : null;
   const userId = user?._id;
-  const [teamData, setTeamData] = useState(null);
 
-  console.log(teamData?.user?.amount);
+  // ✅ Fetch fresh user balance + check bind account
   useEffect(() => {
-    const fetchTeamData = async () => {
-      try {
-        const res = await axios.post("https://be.solarx0.com/team", { userId });
-        setTeamData(res.data);
-      } catch (err) {
-        console.error("Error fetching team data:", err);
-      }
-    };
-
-    fetchTeamData();
-  }, [userId]);
-  useEffect(() => {
-    const checkBindAccount = async () => {
+    const fetchData = async () => {
       try {
         if (!userId) {
           setError("User not logged in");
@@ -39,40 +28,48 @@ const Withdraw = () => {
           return;
         }
 
-        const res = await axios.post(
+        // 🔹 Fetch user/team data
+        const teamRes = await axios.post("https://be.solarx0.com/team", {
+          userId,
+        });
+        if (teamRes.data?.user?.userbalance !== undefined) {
+          setUserBalance(teamRes.data.user.userbalance); // ✅ exact DB balance
+        }
+
+        // 🔹 Fetch bind account
+        const accountRes = await axios.post(
           "https://be.solarx0.com/api/bindAccountRoutes/find",
           { userId }
         );
 
-        if (res.data.success && res.data.data && res.data.data.length > 0) {
-          // Get the first bound account
-          console.log("total mONey In backaccount", res.data.totalMoneyAccount);
-          const account = res.data.data;
-          console.log(account);
+        if (accountRes.data.success && accountRes.data.data.length > 0) {
+          const account = accountRes.data.data[0];
           setHasBoundAccount(true);
           setAccountDetails({
-            userId: userId,
-            bankName: res.data.data[0].bankName,
-            accountName: res.data.data[0].Accountholder,
-            accountNumber: res.data.data[0].AccountNumber,
-            totalMoneyAccount: res.data.totalMoneyAccount,
+            userId,
+            bankName: account.bankName,
+            accountName: account.Accountholder,
+            accountNumber: account.AccountNumber,
           });
-          console.log("data", res.data.data[0]._id);
         }
       } catch (err) {
-        console.log("No bind account found, user must bind first.");
+        console.error("Error fetching withdraw data:", err);
       } finally {
         setLoading(false);
       }
     };
 
-    checkBindAccount();
-  }, [userId, teamData?.user?.amount]);
+    fetchData();
+  }, [userId]);
 
-  console.log("account : ", accountDetails);
   const handleNavigateToWithdraw = () => {
     if (hasBoundAccount && accountDetails) {
-      navigate("/withdrawfunds", { state: accountDetails });
+      navigate("/withdrawfunds", {
+        state: {
+          ...accountDetails,
+          totalMoneyAccount: userBalance, // ✅ send actual DB balance
+        },
+      });
     }
   };
 
@@ -93,11 +90,12 @@ const Withdraw = () => {
         <span>Withdraw Funds</span>
       </div>
 
+      {/* ✅ Show balance straight from DB */}
       <div className="balance-card-withdraw">
         <div>
           <span className="balance-label">Available Balance</span>
           <div className="balance-amount">
-            {accountDetails?.totalMoneyAccount} PKR
+            {userBalance.toLocaleString()} PKR
           </div>
         </div>
       </div>

@@ -26,7 +26,7 @@ export default function Support() {
       label: "Withdraw+Deposit Issue",
       icon: <FaMoneyBillWave />,
       color: "#2a9d8f",
-      link: "tel:+923374341762",
+      link: "tel:+923357918372",
     },
     {
       label: "Customer Service",

@@ -1,8 +1,8 @@
-import axios from "axios";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import Sidebar from "../../components/Sidebar";
 import Topbar from "../../components/Topbar";
 import "../../styles/userlist.css";
+import axios from "axios";
 
 export default function CompletedDeposits() {
   const [q, setQ] = useState("");
@@ -12,7 +12,7 @@ export default function CompletedDeposits() {
   useEffect(() => {
     const fetchDeposits = async () => {
       try {
-        const res = await axios.get("https://be.solarx0.com/api/payments");
+        const res = await axios.get("http://localhost:3005/api/payments");
         // ✅ backend returns { success, payments }
         setDeposits(res.data.data || []);
       } catch (error) {

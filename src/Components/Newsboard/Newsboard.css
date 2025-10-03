@@ -1,11 +1,13 @@
 .partners-section {
     width: 100%;
     padding: 60px 20px;
-    background: linear-gradient(to bottom, #2d0b52, #4b1d72);
+    background: linear-gradient(135deg, #110493, #2a0dbb, #110493);
     color: white;
     text-align: center;
     margin-bottom: 30px;
 }
+
+
 
 .partners-title {
     font-size: 28px;

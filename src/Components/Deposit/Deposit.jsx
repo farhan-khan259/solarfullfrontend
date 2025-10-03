@@ -11,16 +11,20 @@ export default function Deposit() {
   const [selectedMethod, setSelectedMethod] = useState("Easypaisa(C2C)");
   const [customAmount, setCustomAmount] = useState("");
   const [image, setImage] = useState(null);
-  const [imageFile, setImageFile] = useState(null); // Store the actual file
-  const [showSuccess, setShowSuccess] = useState(false);
+  const [imageFile, setImageFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+
+  // ✅ Unified popup state
+  const [popupMessage, setPopupMessage] = useState("");
+  const [popupType, setPopupType] = useState("success"); // "success" | "error"
+  const [showPopup, setShowPopup] = useState(false);
 
   const userString = localStorage.getItem("user");
   const user = JSON.parse(userString);
   const userId = user?._id;
 
   const numberRef = useRef(null);
+
   useEffect(() => {
     const user = localStorage.getItem("user");
     if (!user) {
@@ -29,8 +33,8 @@ export default function Deposit() {
   }, []);
 
   const methods = [
-    { name: "Easypaisa(C2C)", bonus: "5%" },
-    { name: "JazzCash(C2C)", bonus: "5%" },
+    { name: "Easypaisa(C2C)", bonus: "3%" },
+    { name: "JazzCash(C2C)", bonus: "3%" },
   ];
 
   const images = {
@@ -40,25 +44,25 @@ export default function Deposit() {
 
   const accounts = {
     "Easypaisa(C2C)": {
-      number: "03009998888",
-      name: "Sajid Ali",
+      number: "03377458802",
+      name: "Tanveer Abbas",
     },
     "JazzCash(C2C)": {
-      number: "03009998888",
-      name: "Sajid Ali",
+      number: "03241984642",
+      name: "Muhammad Asghar",
     },
   };
 
-  // ✅ Fixed 5% bonus calculation
+  // ✅ Bonus calculation
   const amountToDisplay = customAmount
-    ? (parseFloat(customAmount) + parseFloat(customAmount) * 0.05).toFixed(0)
+    ? (parseFloat(customAmount) + parseFloat(customAmount) * 0.03).toFixed(0)
     : "00";
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
       setImage(URL.createObjectURL(file));
-      setImageFile(file); // Store the file for submission
+      setImageFile(file);
     }
   };
 
@@ -70,22 +74,23 @@ export default function Deposit() {
   };
 
   const handleSubmit = async () => {
-    // Validate inputs
-    if (!customAmount || parseFloat(customAmount) < 300) {
-      setErrorMessage("Please enter a valid amount (minimum Rs. 300)");
+    if (!customAmount || parseFloat(customAmount) < 1000) {
+      setPopupType("error");
+      setPopupMessage("❌ Minimum deposit amount is Rs. 1000");
+      setShowPopup(true);
       return;
     }
 
     if (!imageFile) {
-      setErrorMessage("Please upload a screenshot of your payment");
+      setPopupType("error");
+      setPopupMessage("❌ Please upload a screenshot of your payment");
+      setShowPopup(true);
       return;
     }
 
     setIsLoading(true);
-    setErrorMessage("");
 
     try {
-      // Create form data for file upload
       const formData = new FormData();
       formData.append("user_id", userId);
       formData.append("amount", amountToDisplay);
@@ -95,24 +100,29 @@ export default function Deposit() {
       const response = await fetch("https://be.solarx0.com/api/deposit", {
         method: "POST",
         body: formData,
-        // Note: Don't set Content-Type header when using FormData
-        // The browser will set it automatically with the correct boundary
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        setShowSuccess(true);
-        // Reset form
+        setPopupType("success");
+        setPopupMessage("✅ Deposit request submitted successfully!");
+        setShowPopup(true);
+
+        // reset form
         setCustomAmount("");
         setImage(null);
         setImageFile(null);
       } else {
-        setErrorMessage(data.message || "Deposit request failed");
+        setPopupType("error");
+        setPopupMessage(`❌ ${data.message || "Deposit request failed"}`);
+        setShowPopup(true);
       }
     } catch (error) {
       console.error("Error submitting deposit:", error);
-      setErrorMessage("Network error. Please try again.");
+      setPopupType("error");
+      setPopupMessage("❌ Network error. Please try again.");
+      setShowPopup(true);
     } finally {
       setIsLoading(false);
     }
@@ -151,12 +161,10 @@ export default function Deposit() {
           placeholder="Rs Min 1000 - Max Unlimited"
           value={customAmount}
           onChange={(e) => setCustomAmount(e.target.value)}
-          min="300"
+          min="1000"
           max="50000"
           step="1"
         />
-
-        {errorMessage && <div className="error-message">{errorMessage}</div>}
       </div>
 
       <div
@@ -169,7 +177,7 @@ export default function Deposit() {
         <div className="amount-box2">
           <div className="amount-text2">
             <p>
-              AMOUNT OF PAYMENT <span style={{ color: "red" }}>+ 5%</span>
+              AMOUNT OF PAYMENT <span style={{ color: "red" }}>+ 3%</span>
             </p>
 
             <h1>{amountToDisplay}</h1>
@@ -255,15 +263,17 @@ export default function Deposit() {
         </div>
       </div>
 
-      {/* Success Popup  */}
-      {showSuccess && (
+      {/* ✅ Unified Popup */}
+      {showPopup && (
         <div className="deposit-success-overlay">
-          <div className="deposit-success-box">
-            <h2>✅ Deposit Completed</h2>
-            <p>
-              Thank you! Your deposit request has been successfully submitted.
-            </p>
-            <button onClick={() => setShowSuccess(false)}>Close</button>
+          <div className={`deposit-success-box ${popupType}`}>
+            <h2>
+              {popupType === "success"
+                ? "✅ Deposit Completed"
+                : "⚠️ Deposit Failed"}
+            </h2>
+            <p>{popupMessage}</p>
+            <button onClick={() => setShowPopup(false)}>Close</button>
           </div>
         </div>
       )}

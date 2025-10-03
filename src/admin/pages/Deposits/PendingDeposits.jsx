@@ -1,4 +1,3 @@
-// src/admin/pages/Deposits/PendingDeposits.jsx
 import axios from "axios";
 import { useEffect, useMemo, useState } from "react";
 import Sidebar from "../../components/Sidebar";

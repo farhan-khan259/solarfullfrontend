@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   FaArrowLeft,
   FaCheckCircle,
@@ -12,19 +12,55 @@ import "./Withdrawfunds.css";
 
 const Withdrawfunds = () => {
   const location = useLocation();
-  const { bankName, accountNumber, accountName, totalMoneyAccount } =
-    location.state || {};
+  const { bankName, accountNumber, accountName } = location.state || {};
+
   const [amount, setAmount] = useState("");
   const [loading, setLoading] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [userBalance, setUserBalance] = useState(0);
+
+  // ✅ Get user
   const userString = localStorage.getItem("user");
   const user = userString ? JSON.parse(userString) : null;
   const userId = user?._id;
-  console.log("location", location.state);
-  const userPlan = localStorage.getItem("userPlan");
-  console.log(userPlan);
+
+  const [plans, setPlans] = useState([]);
+
+  // ✅ Fetch fresh user balance from DB
+  useEffect(() => {
+    const fetchBalance = async () => {
+      try {
+        const res = await axios.post("https://be.solarx0.com/team", { userId });
+        if (res.data?.user?.userbalance !== undefined) {
+          setUserBalance(res.data.user.userbalance);
+        }
+      } catch (err) {
+        console.error("Error fetching user balance:", err);
+      }
+    };
+    if (userId) fetchBalance();
+  }, [userId]);
+
+  useEffect(() => {
+    // Fetch plans from backend
+    const fetchPlan = async () => {
+      try {
+        const res = await axios.get(`https://be.solarx0.com/api/plans/`, {
+          params: { id: userId },
+        });
+        if (res.data.success) {
+          setPlans(res.data.plans);
+        }
+      } catch (err) {
+        console.error("Error fetching plan:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    if (userId) fetchPlan();
+  }, [userId]);
 
   const handleSubmit = async () => {
     if (!amount || Number(amount) < 100) {
@@ -32,13 +68,14 @@ const Withdrawfunds = () => {
       setShowError(true);
       return;
     }
-    if (Number(userPlan) === 0) {
-      setErrorMessage("Minimum plan  one active ");
+
+    if (plans.length === 0) {
+      setErrorMessage("You need at least 1 active plan to withdraw");
       setShowError(true);
       return;
     }
 
-    if (Number(amount) > totalMoneyAccount) {
+    if (Number(amount) > userBalance) {
       setErrorMessage("Insufficient balance for this withdrawal");
       setShowError(true);
       return;
@@ -55,6 +92,9 @@ const Withdrawfunds = () => {
       });
 
       if (res.data.success) {
+        // ✅ Update UI balance instantly
+        setUserBalance((prev) => prev - Number(amount));
+
         setShowSuccess(true);
         setAmount("");
       } else {
@@ -79,9 +119,10 @@ const Withdrawfunds = () => {
         <h2 className="title3">Withdraw Funds</h2>
       </div>
 
+      {/* ✅ Show exact DB balance */}
       <div className="balance-card3">
         <span>Available Balance</span>
-        <h1 className="balance-amount3">{totalMoneyAccount} PKR</h1>
+        <h1 className="balance-amount3">{userBalance.toFixed(2)} PKR</h1>
       </div>
 
       <div className="card3">
@@ -118,29 +159,12 @@ const Withdrawfunds = () => {
         </p>
       </div>
 
-      {/* Restricted - Only show if user hasn't activated a plan */}
-      {/* <div className="card3 error-card3">
-				<h4 className="error-title3">
-					<FaInfoCircle className="error-icon3" /> Withdrawal Restricted
-				</h4>
-				<p className="error-desc3">
-					You cannot withdraw until you activate a plan with your deposited
-					funds.
-				</p>
-				<p className="error-desc3">
-					Please activate a plan before submitting a withdrawal request.
-				</p>
-			</div> */}
-
       {/* Step 2 */}
       <div className="card3">
         <h3 className="step-title3">
           <FaWallet className="step-icon3" /> Step 2: Enter Withdrawal Amount
         </h3>
-        {/* Only show this alert if user hasn't activated a plan */}
-        {/* <div className="alert3">
-					You must activate a plan before submitting a withdrawal request
-				</div> */}
+
         <input
           className="amount-input3"
           type="number"

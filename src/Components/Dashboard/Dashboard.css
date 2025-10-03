@@ -553,6 +553,14 @@ body {
         border-radius: 16px;
         object-fit: fill;
     }
+
+    .card-top {
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        padding: 10px;
+        flex-direction: column;
+    }
 }
 
 @media screen and (max-width: 390px) {
@@ -848,5 +856,34 @@ body {
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+/* Refresh Button */
+.refresh-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #2945ff;
+    /* Or any theme color */
+    margin-left: 10px;
+}
+
+.refresh-btn:hover {
+    color: #ff7e00;
+}
+
+.spin-icon {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
     }
 }

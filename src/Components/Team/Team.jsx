@@ -174,12 +174,18 @@ const InviteScreen = ({ teamData }) => {
 // TeamDataScreen and TeamDetailsScreen remain unchanged...
 
 const TeamDataScreen = ({ teamData }) => {
+  // calculate actual team size
+  const totalTeamMembers =
+    teamData.directReferrals.stats.totalUsers +
+    teamData.indirectReferrals.stats.totalUsers +
+    teamData.extendedReferrals.stats.totalUsers;
+
   return (
     <div className="team-data-container">
       <div className="team-summary-cards">
         <div className="summary-card blue">
           <h4>Total Team</h4>
-          <p>1</p>
+          <p>{totalTeamMembers}</p>
         </div>
         <div className="summary-card green">
           <h4>Total Team Commission</h4>
@@ -203,8 +209,7 @@ const TeamDataScreen = ({ teamData }) => {
           <span>{teamData.directReferrals.stats.totalActiveUsers}</span>
         </p>
         <p>
-          Total Users:
-          <span>{teamData.directReferrals.stats.totalUsers}</span>
+          Total Users: <span>{teamData.directReferrals.stats.totalUsers}</span>
         </p>
 
         <p>
@@ -279,7 +284,7 @@ const TeamDataScreen = ({ teamData }) => {
           <span>{teamData.extendedReferrals.stats.totalActiveUsers}</span>
         </p>
         <p>
-          Total Users:
+          Total Users:{" "}
           <span>{teamData.extendedReferrals.stats.totalUsers}</span>
         </p>
 
@@ -314,6 +319,7 @@ const TeamDetailsScreen = ({ teamData }) => {
         <FaUsers /> My Invite User Details
       </h2>
 
+      {/* Tabs */}
       <div className="team-details-tabs">
         <button
           className={`tab-button ${activeLevel === "1" ? "active" : ""}`}
@@ -334,39 +340,38 @@ const TeamDetailsScreen = ({ teamData }) => {
           Level (3)
         </button>
       </div>
+
+      {/* Level 1 */}
       {activeLevel === "1" &&
         (teamData.directReferrals.members.length > 0 ? (
           teamData.directReferrals.members.map((user, index) => (
             <div className="user-cardteam" key={index}>
               <br />
               <p>
-                <strong>Upliner</strong>{" "}
-                <span className="blue"> {teamData.user.fullName}</span>
+                <strong>Upliner:</strong>{" "}
+                <span className="blue">{teamData.user.fullName}</span>
               </p>
               <p>
                 <strong>User Name:</strong>{" "}
-                <span className="blue"> {user.fullName}</span>
+                <span className="blue">{user.fullName}</span>
               </p>
               <p>
                 <strong>Whatsapp No: </strong>{" "}
-                <span className="blue"> {user?.whatsappNumber}</span>
+                <span className="blue">{user?.whatsappNumber}</span>
               </p>
               <p>
                 <strong>Joining Date:</strong>{" "}
                 <span className="blue">
-                  {" "}
                   {new Date(user.createdAt).toLocaleDateString()}
                 </span>
               </p>
               <p>
                 <strong>Investment: </strong>{" "}
-                <span className="blue"> {user.payments.totalDeposit}</span>
+                <span className="blue">{user.payments.totalDeposit}</span>
               </p>
               <p>
-                <strong>Commission: </strong>
-                <span className="blue">
-                  {(user.payments.totalDeposit * 0.08).toFixed(2)}
-                </span>
+                <strong>Withdrawal: </strong>
+                <span className="blue">{user.payments.totalWithdrawal}</span>
               </p>
             </div>
           ))
@@ -376,39 +381,37 @@ const TeamDetailsScreen = ({ teamData }) => {
           </div>
         ))}
 
+      {/* Level 2 */}
       {activeLevel === "2" &&
         (teamData.indirectReferrals.members.length > 0 ? (
           teamData.indirectReferrals.members.map((user, index) => (
             <div className="user-cardteam" key={index}>
               <br />
               <p>
-                <strong>Upliner</strong>{" "}
-                <span className="blue"> {teamData.user.fullName}</span>
+                <strong>Upliner:</strong>{" "}
+                <span className="blue">{teamData.user.fullName}</span>
               </p>
               <p>
                 <strong>User Name:</strong>{" "}
-                <span className="blue"> {user.fullName}</span>
+                <span className="blue">{user.fullName}</span>
               </p>
               <p>
                 <strong>Whatsapp No: </strong>{" "}
-                <span className="blue"> {user?.whatsappNumber}</span>
+                <span className="blue">{user?.whatsappNumber}</span>
               </p>
               <p>
                 <strong>Joining Date:</strong>{" "}
                 <span className="blue">
-                  {" "}
                   {new Date(user.createdAt).toLocaleDateString()}
                 </span>
               </p>
               <p>
                 <strong>Investment: </strong>{" "}
-                <span className="blue"> {user.payments.totalDeposit}</span>
+                <span className="blue">{user.payments.totalDeposit}</span>
               </p>
               <p>
-                <strong>Commission: </strong>
-                <span className="blue">
-                  {(user.payments.totalDeposit * 0.05).toFixed(2)}
-                </span>
+                <strong>Withdrawal: </strong>
+                <span className="blue">{user.payments.totalWithdrawal}</span>
               </p>
             </div>
           ))
@@ -418,39 +421,37 @@ const TeamDetailsScreen = ({ teamData }) => {
           </div>
         ))}
 
+      {/* Level 3 */}
       {activeLevel === "3" &&
         (teamData.extendedReferrals.members.length > 0 ? (
           teamData.extendedReferrals.members.map((user, index) => (
             <div className="user-cardteam" key={index}>
               <br />
               <p>
-                <strong>Upliner</strong>{" "}
-                <span className="blue"> {teamData.user.fullName}</span>
+                <strong>Upliner:</strong>{" "}
+                <span className="blue">{teamData.user.fullName}</span>
               </p>
               <p>
                 <strong>User Name:</strong>{" "}
-                <span className="blue"> {user.fullName}</span>
+                <span className="blue">{user.fullName}</span>
               </p>
               <p>
                 <strong>Whatsapp No: </strong>{" "}
-                <span className="blue"> {user?.whatsappNumber}</span>
+                <span className="blue">{user?.whatsappNumber}</span>
               </p>
               <p>
                 <strong>Joining Date:</strong>{" "}
                 <span className="blue">
-                  {" "}
                   {new Date(user.createdAt).toLocaleDateString()}
                 </span>
               </p>
               <p>
                 <strong>Investment: </strong>{" "}
-                <span className="blue"> {user.payments.totalDeposit}</span>
+                <span className="blue">{user.payments.totalDeposit}</span>
               </p>
               <p>
-                <strong>Commission: </strong>
-                <span className="blue">
-                  {(user.payments.totalDeposit * 0.02).toFixed(2)} USD
-                </span>
+                <strong>Withdrawal: </strong>
+                <span className="blue">{user.payments.totalWithdrawal}</span>
               </p>
             </div>
           ))

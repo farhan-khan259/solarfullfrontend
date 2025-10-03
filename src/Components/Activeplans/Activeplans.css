@@ -10,6 +10,7 @@
     --radius: 15px;
 }
 
+/* Main Container */
 .active-container {
     min-height: 100vh;
     background: #f8fafc;
@@ -25,6 +26,16 @@
     padding: 20px;
     width: 100%;
     max-width: 420px;
+}
+
+.notactive span {
+    padding-right: 30px;
+}
+
+.notactive {
+
+    font-size: 1.5rem;
+    font-weight: 700;
 }
 
 /* Top Bar */
@@ -127,28 +138,104 @@
     font-size: 20px;
 }
 
-/* Circle Timer */
-.circle-timer {
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
-    border: 6px solid var(--green);
-    margin: 15px auto;
+/* Loader Box */
+.circle-loader-box {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    margin: 25px 0;
+}
+
+/* Outer Rotating Arrows */
+.clock-loader {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: spin 2.5s linear infinite;
+}
+
+/* Blue Arrow */
+.arrow-blue,
+.arrow-orange {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 8px solid transparent;
+    border-radius: 50%;
+}
+
+/* Top Arc */
+.arrow-blue {
+    border-top-color: #004aad;
+    border-left-color: #004aad;
+    transform: rotate(45deg);
+}
+
+/* Bottom Arc */
+.arrow-orange {
+    border-bottom-color: #ff9800;
+    border-right-color: #ff9800;
+    transform: rotate(45deg);
+}
+
+/* Inner Clock Circle */
+.inner-clock {
+    width: 60px;
+    height: 60px;
+    background: #fff;
+    border: 3px solid #004aad;
+    border-radius: 50%;
+    position: relative;
+    display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.circle-title {
-    font-size: 14px;
-    color: var(--blue);
+/* Clock Hand */
+.inner-clock::after {
+    content: "";
+    width: 3px;
+    height: 18px;
+    background: #ff9800;
+    position: absolute;
+    top: 12px;
+    border-radius: 2px;
+    transform-origin: bottom;
+    animation: tick 2s linear infinite;
 }
 
-.circle-time {
-    font-weight: bold;
-    color: var(--red);
-    margin-top: 5px;
+/* Animations */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes tick {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Text */
+.processing-text {
+    margin-top: 14px;
+    font-weight: 600;
+    color: #004aad;
+    font-size: 15px;
+    letter-spacing: 0.5px;
 }
 
 /* More Information */
@@ -209,16 +296,16 @@
         font-size: 16px;
     }
 
-    .circle-timer {
-        width: 150px;
-        height: 150px;
+    .circle-loader {
+        width: 60px;
+        height: 60px;
+        border-width: 5px;
     }
 
     .plan-title-box h2 {
         font-size: 18px;
     }
 }
-
 
 @media (max-width: 321px) {
     .active-heading {

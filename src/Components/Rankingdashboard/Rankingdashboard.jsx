@@ -1,11 +1,10 @@
-// import { useState, useEffect } from "react";
 import axios from "axios";
+import { useEffect, useState } from "react";
 import { FaArrowLeft, FaGift } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import "./Rankingdashboard.css";
 
 // Tier images
-import { useEffect, useState } from "react";
 import starterImg from "../../Assets/Pictures/plan1.jpg";
 import legendImg from "../../Assets/Pictures/plan10.jpg";
 import bronzeImg from "../../Assets/Pictures/plan2.jpg";
@@ -21,8 +20,8 @@ export default function Rankingdashboard() {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [claimedRewards, setClaimedRewards] = useState([]); // track claimed rewards
 
-  // Get user ID from localStorage
   const userString = localStorage.getItem("user");
   const user = userString ? JSON.parse(userString) : null;
   const userId = user?._id;
@@ -39,8 +38,8 @@ export default function Rankingdashboard() {
         const response = await axios.post(`https://be.solarx0.com/team`, {
           userId: userId,
         });
+        console.log("API Response:", response.data); // Debug log
         setUserData(response.data);
-        console.log(response.data);
       } catch (err) {
         console.error("Error fetching user data:", err);
         setError("Failed to load ranking data");
@@ -55,22 +54,23 @@ export default function Rankingdashboard() {
   const ranks = [
     {
       name: "Starter",
-      personal: 0,
-      team: 0,
-      reward: 0,
+      level: 2,
+      personal: 1000,
+      team: 15000,
+      reward: 300,
       img: starterImg,
     },
     {
       name: "Bronze",
-      level: 1,
-      personal: 1000,
+      level: 2,
+      personal: 2000,
       team: 25000,
       reward: 500,
       img: bronzeImg,
     },
     {
       name: "Silver",
-      level: 2,
+      level: 3,
       personal: 3000,
       team: 50000,
       reward: 1200,
@@ -78,7 +78,7 @@ export default function Rankingdashboard() {
     },
     {
       name: "Gold",
-      level: 3,
+      level: 4,
       personal: 5000,
       team: 100000,
       reward: 2500,
@@ -86,7 +86,7 @@ export default function Rankingdashboard() {
     },
     {
       name: "Platinum",
-      level: 4,
+      level: 5,
       personal: 10000,
       team: 150000,
       reward: 4500,
@@ -94,7 +94,7 @@ export default function Rankingdashboard() {
     },
     {
       name: "Diamond",
-      level: 5,
+      level: 6,
       personal: 15000,
       team: 200000,
       reward: 7000,
@@ -102,7 +102,7 @@ export default function Rankingdashboard() {
     },
     {
       name: "Master",
-      level: 6,
+      level: 7,
       personal: 20000,
       team: 300000,
       reward: 10000,
@@ -110,7 +110,7 @@ export default function Rankingdashboard() {
     },
     {
       name: "Grandmaster",
-      level: 7,
+      level: 8,
       personal: 30000,
       team: 500000,
       reward: 15000,
@@ -118,7 +118,7 @@ export default function Rankingdashboard() {
     },
     {
       name: "Elite",
-      level: 8,
+      level: 9,
       personal: 40000,
       team: 700000,
       reward: 20000,
@@ -126,7 +126,7 @@ export default function Rankingdashboard() {
     },
     {
       name: "Legend",
-      level: 9,
+      level: 10,
       personal: 50000,
       team: 1000000,
       reward: 25000,
@@ -134,13 +134,16 @@ export default function Rankingdashboard() {
     },
   ];
 
-  // Calculate user's current level based on investments
   const calculateCurrentLevel = () => {
     if (!userData) return 0;
 
-    const personalInvestment = Math.abs(userData.user.amount) || 0;
+    // CORRECTED: Use proper field names from API response
+    const personalInvestment = userData.user?.UserInvestment || 0;
     const teamInvestment =
       userData.directReferrals?.stats?.totalTeamDeposit || 0;
+
+    console.log("Personal Investment:", personalInvestment);
+    console.log("Team Investment:", teamInvestment);
 
     for (let i = ranks.length - 1; i >= 0; i--) {
       if (
@@ -150,12 +153,24 @@ export default function Rankingdashboard() {
         return i;
       }
     }
-
     return 0;
   };
 
   const currentLevelIndex = calculateCurrentLevel();
-  const currentLevel = ranks[currentLevelIndex];
+
+  const handleClaimReward = (rankIndex, rewardAmount) => {
+    if (claimedRewards.includes(rankIndex)) return;
+
+    // Example: send to backend
+    axios.post("https://be.solarx0.com/claimReward", {
+      userId,
+      rank: ranks[rankIndex].name,
+      reward: rewardAmount,
+    });
+
+    // Mark reward as claimed locally
+    setClaimedRewards((prev) => [...prev, rankIndex]);
+  };
 
   if (loading) {
     return (
@@ -185,6 +200,17 @@ export default function Rankingdashboard() {
     );
   }
 
+  // CORRECTED: Get current values using proper field names
+  const personalCurrent = userData?.user?.UserInvestment || 0;
+  const teamCurrent = userData?.directReferrals?.stats?.totalTeamDeposit || 0;
+
+  console.log(
+    "Current Values - Personal:",
+    personalCurrent,
+    "Team:",
+    teamCurrent
+  );
+
   return (
     <div className="ranking-wrapper">
       {/* Header */}
@@ -195,25 +221,20 @@ export default function Rankingdashboard() {
         <h2>Ranking Dashboard</h2>
       </div>
 
-      {/* Current Rank Summary */}
-
       {/* Rank Cards */}
       <div className="ranking-grid">
         {ranks.map((rank, index) => {
-          const nextRank = ranks[index + 1];
+          // CORRECTED: Use proper field names for calculations
+          const personalProgress = Math.min(
+            (personalCurrent / rank.personal) * 100,
+            100
+          );
+          const teamProgress = Math.min((teamCurrent / rank.team) * 100, 100);
 
-          // Get actual user investments
-          const personalCurrent = Math.abs(userData?.user?.amount) || 0;
-          const teamCurrent =
-            userData?.directReferrals?.stats?.totalTeamDeposit || 0;
+          // Calculate overall progress (average of both)
+          const overallProgress = (personalProgress + teamProgress) / 2;
 
-          let progress = 0;
-          if (nextRank && index === currentLevelIndex) {
-            const totalCurrent = personalCurrent + teamCurrent;
-            const totalNextRequired = nextRank.personal + nextRank.team;
-            progress = (totalCurrent / totalNextRequired) * 100;
-            if (progress > 100) progress = 100;
-          }
+          const alreadyClaimed = claimedRewards.includes(index);
 
           return (
             <div key={index} className="rank-card">
@@ -222,13 +243,9 @@ export default function Rankingdashboard() {
                 <img src={rank.img} alt={rank.name} />
                 <div className="rank-title">
                   <h3>{rank.name}</h3>
-
-                  {/* Show Level for all ranks except starter */}
                   {index !== 0 && rank.level && (
                     <span className="level-pill">Level {rank.level}</span>
                   )}
-
-                  {/* Current rank badge */}
                   {index === currentLevelIndex && (
                     <span className="current-pill">Current Rank ✅</span>
                   )}
@@ -238,83 +255,118 @@ export default function Rankingdashboard() {
               {/* Requirements */}
               <div className="requirements">
                 <div className="requirement">
-                  <span> Investment:</span>
-                  <strong>PKR {userData.user.UserInvestment}</strong>
+                  <span>Investment:</span>
+                  <strong>PKR {personalCurrent.toLocaleString()}</strong>
                 </div>
                 <div className="requirement">
                   <span>Team Investment:</span>
-                  <strong>
-                    PKR {userData.directReferrals?.stats?.totalTeamDeposit || 0}
-                  </strong>
+                  <strong>PKR {teamCurrent.toLocaleString()}</strong>
                 </div>
               </div>
 
-              {/* Next Rank Goal (only for current rank) */}
-              {nextRank && index === currentLevelIndex && (
-                <div className="next-goal">
-                  <h4>
-                    Next Rank Goal: <span>{nextRank.name}</span>
-                  </h4>
-                  <div className="goal-boxes">
-                    <div className="blue-box">
-                      Team Investment: PKR {nextRank.team}
-                      <div className="needed">
-                        More Needed{" "}
-                        {nextRank.team - teamCurrent > 0
-                          ? nextRank.team - teamCurrent
-                          : 0}{" "}
-                        PKR
-                      </div>
+              {/* Detailed Progress Section */}
+              <div className="progress-section">
+                <h4>Progress to {rank.name}</h4>
+
+                <div className="progress-grid">
+                  {/* Team Investment */}
+                  <div className="progress-box">
+                    <p>
+                      Team Investment Required: PKR {rank.team.toLocaleString()}
+                    </p>
+                    <p>You Invested: PKR {teamCurrent.toLocaleString()}</p>
+                    <p>
+                      More Needed:{" "}
+                      {Math.max(rank.team - teamCurrent, 0).toLocaleString()}{" "}
+                      PKR
+                    </p>
+                    <div className="progress-bar">
+                      <div
+                        className="progress-fill"
+                        style={{
+                          width: `${teamProgress}%`,
+                        }}
+                      ></div>
                     </div>
-                    <div className="blue-box">
-                      Personal Investment: PKR {nextRank.personal}
-                      <div className="needed">
-                        More Needed{" "}
-                        {nextRank.personal - personalCurrent > 0
-                          ? nextRank.personal - personalCurrent
-                          : 0}{" "}
-                        PKR
-                      </div>
+                    <span className="progress-percent">
+                      {teamProgress.toFixed(1)}%
+                    </span>
+                  </div>
+
+                  {/* Personal Investment */}
+                  <div className="progress-box">
+                    <p>
+                      Personal Investment Required: PKR{" "}
+                      {rank.personal.toLocaleString()}
+                    </p>
+                    <p>You Invested: PKR {personalCurrent.toLocaleString()}</p>
+                    <p>
+                      More Needed:{" "}
+                      {Math.max(
+                        rank.personal - personalCurrent,
+                        0
+                      ).toLocaleString()}{" "}
+                      PKR
+                    </p>
+                    <div className="progress-bar">
+                      <div
+                        className="progress-fill"
+                        style={{
+                          width: `${personalProgress}%`,
+                        }}
+                      ></div>
                     </div>
+                    <span className="progress-percent">
+                      {personalProgress.toFixed(1)}%
+                    </span>
+                  </div>
+
+                  {/* Your Team Total Investment */}
+                  <div className="progress-box">
+                    <p>Your Team Total Investment</p>
+                    <strong>PKR {teamCurrent.toLocaleString()}</strong>
+                  </div>
+
+                  {/* Your Total Investment */}
+                  <div className="progress-box">
+                    <p>Your Total Investment</p>
+                    <strong>PKR {personalCurrent.toLocaleString()}</strong>
                   </div>
                 </div>
-              )}
 
-              {/* Current Investments */}
-              <div className="current-investments">
-                <div className="orange-box">
-                  Your Team Total Investment
-                  <strong> PKR {teamCurrent}</strong>
+                {/* Final Overall Progress */}
+                <div className="progress-bar overall-progress">
+                  <div
+                    className="progress-fill"
+                    style={{ width: `${overallProgress}%` }}
+                  ></div>
                 </div>
-                <div className="orange-box">
-                  Your Total Investment
-                  <strong> PKR {userData.user.UserInvestment}</strong>
-                </div>
-              </div>
+                <span className="progress-percent">
+                  {overallProgress.toFixed(1)}%
+                </span>
 
-              {/* Progress (only for current rank) */}
-              {nextRank && index === currentLevelIndex && (
-                <div className="progress-section">
-                  <p>
-                    Progress to Next Rank{" "}
-                    <span className="next-pill">{nextRank.name}</span>
+                {/* Reward Button */}
+                {personalCurrent >= rank.personal &&
+                teamCurrent >= rank.team ? (
+                  alreadyClaimed ? (
+                    <p className="reward claimed">
+                      ✅ Reward Claimed: PKR {rank.reward.toLocaleString()}
+                    </p>
+                  ) : (
+                    <button
+                      className="claim-btn"
+                      onClick={() => handleClaimReward(index, rank.reward)}
+                    >
+                      🎁 Claim Reward (PKR {rank.reward.toLocaleString()})
+                    </button>
+                  )
+                ) : (
+                  <p className="reward">
+                    <FaGift /> Rank Benefit: PKR {rank.reward.toLocaleString()}{" "}
+                    reward
                   </p>
-                  <div className="progress-bar">
-                    <div
-                      className="progress-fill"
-                      style={{ width: `${progress}%` }}
-                    ></div>
-                  </div>
-                  <span className="progress-percent">
-                    {progress.toFixed(0)}%
-                  </span>
-                </div>
-              )}
-
-              {/* Reward */}
-              <p className="reward">
-                <FaGift /> Rank Benefit: PKR {rank.reward} reward
-              </p>
+                )}
+              </div>
             </div>
           );
         })}

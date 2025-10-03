@@ -380,3 +380,17 @@ body {
         font-size: 14px;
     }
 }
+
+
+
+.deposit-success-box.error {
+    border: 2px solid red;
+    background: #ffe6e6;
+    color: #b30000;
+}
+
+.deposit-success-box.success {
+    border: 2px solid green;
+    background: #e6ffe6;
+    color: #006600;
+}

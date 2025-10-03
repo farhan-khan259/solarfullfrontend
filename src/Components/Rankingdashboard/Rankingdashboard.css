@@ -27,7 +27,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    /* center heading */
     position: relative;
     margin-bottom: 20px;
 }
@@ -35,7 +34,6 @@ body {
 .back-link {
     position: absolute;
     left: 0;
-    /* stick arrow to left edge */
     color: var(--primary-color);
     font-size: 24px;
     display: flex;
@@ -49,7 +47,7 @@ body {
     flex: 1;
 }
 
-/* Grid */
+/* Rank Grid */
 .ranking-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -95,117 +93,101 @@ body {
     display: inline-block;
 }
 
-/* Next Rank Goal */
-.next-goal {
-    background: var(--orange-box);
-    border-radius: var(--radius);
-    padding: 12px;
-    color: white;
-    margin-top: 8px;
+/* Progress Section */
+.progress-section {
+    margin-top: 12px;
 }
 
-.next-goal h4 {
+/* 2x2 Investment Grid */
+.progress-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 15px 0;
+}
+
+.progress-box {
+    background: var(--orange-box);
+    border-radius: var(--radius);
+    padding: 14px;
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    box-shadow: var(--shadow);
+}
+
+.progress-box strong {
+    display: block;
+    margin-top: 6px;
     font-size: 16px;
     font-weight: bold;
-    color: #c5ff69;
-    margin-bottom: 10px;
 }
 
-.goal-boxes {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
+/* Small Progress Bars */
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    background: #dfe6f5;
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 8px 0;
 }
 
-.blue-box {
+.progress-fill {
+    height: 100%;
     background: var(--blue-box);
-    flex: 1;
-    padding: 10px;
-    border-radius: var(--radius);
-    font-size: 14px;
-    text-align: center;
+    transition: width 0.4s ease-in-out;
 }
 
-.blue-box .needed {
+.progress-percent {
     font-size: 12px;
-    color: #ffdddd;
-    margin-top: 4px;
-}
-
-/* Current Investments */
-.current-investments {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-
-.orange-box {
-    background: var(--orange-box);
-    flex: 1;
-    padding: 10px;
-    border-radius: var(--radius);
-    font-size: 14px;
-    color: white;
-    text-align: center;
-}
-
-.orange-box strong {
+    font-weight: bold;
+    color: #fff;
     display: block;
     margin-top: 4px;
 }
 
-/* Progress */
-.progress-section {
-    margin-top: 8px;
+/* Overall Progress Bar */
+.overall-progress {
+    height: 14px;
+    margin-top: 12px;
 }
 
-.progress-section p {
-    font-size: 14px;
-    font-weight: bold;
-}
-
-.next-pill {
-    background: #f3f3f3;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    padding: 2px 8px;
-    font-size: 12px;
-}
-
-.progress-bar {
-    background: #f0f0f0;
-    border-radius: 20px;
-    height: 16px;
-    position: relative;
-    margin: 10px 0;
-}
-
-.progress-fill {
-    background: linear-gradient(90deg, #ffe600, #f89e2f);
-    height: 100%;
-    border-radius: 20px;
-    transition: width 0.5s ease-in-out;
-}
-
-.progress-percent {
-    font-weight: bold;
-    font-size: 14px;
-    float: right;
-}
-
-/* Reward */
 .reward {
+    margin-top: 8px;
     font-size: 14px;
-    color: #2467f6;
     font-weight: 600;
     display: flex;
     align-items: center;
     gap: 6px;
+    color: var(--primary-color);
+}
+
+.reward.claimed {
+    color: green;
+    font-weight: bold;
+}
+
+.claim-btn {
+    margin-top: 10px;
+    padding: 8px 14px;
+    background: var(--accent-color);
+    border: none;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.claim-btn:hover {
+    background: #e68900;
 }
 
 /* Responsive */
-@media (max-width: 600px) {
-    .ranking-grid {
+@media (max-width: 768px) {
+    .progress-grid {
         grid-template-columns: 1fr;
     }
 

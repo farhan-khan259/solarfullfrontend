@@ -1,13 +1,12 @@
-// src/admin/pages/PromoCodes/AdminPromoCodes.jsx
-import axios from "axios";
 import { useEffect, useState } from "react";
 import Sidebar from "../../components/Sidebar";
 import Topbar from "../../components/Topbar";
 import "../../styles/admin.css";
 import "../../styles/userlist.css";
+import axios from "axios";
 
 export default function AdminPromoCodes() {
-  const [codes, setCodes] = useState([]); // ✅ always start as an array
+  // const [codes, setCodes] = useState([]); // ✅ always start as an array
   const [showPopup, setShowPopup] = useState(false);
   const [limitUsers, setLimitUsers] = useState("");
   const [amount, setAmount] = useState("");
@@ -40,7 +39,7 @@ export default function AdminPromoCodes() {
       });
 
       if (res.data.success) {
-        setCodes((prev) => [...prev, res.data.promo]);
+        // setCodes((prev) => [...prev, res.data.promo]);
         setLimitUsers("");
         setAmount("");
         setShowPopup(false);
@@ -68,7 +67,7 @@ export default function AdminPromoCodes() {
       );
 
       if (res.data.success) {
-        setCodes((prev) => prev.filter((c) => c._id !== id));
+        // setCodes((prev) => prev.filter((c) => c._id !== id));
         window.location.reload();
       } else {
         alert(res.data.message || "Failed to delete promo code");
@@ -79,6 +78,7 @@ export default function AdminPromoCodes() {
     }
   };
 
+  console.log(data);
   return (
     <div className="admin-layout">
       <Sidebar />
@@ -151,7 +151,7 @@ export default function AdminPromoCodes() {
                     <td data-label="Code">{code.code}</td>
                     <td data-label="Amount">{code.amount || "-"}</td>
                     <td data-label="Limit">{code.limit || "-"}</td>
-                    <td data-label="Claimed">{code.Claimed || 0}</td>
+                    <td data-label="Claimed">{code.claimed || 0}</td>
                     <td data-label="Actions">
                       <button
                         className="action-btn delete"

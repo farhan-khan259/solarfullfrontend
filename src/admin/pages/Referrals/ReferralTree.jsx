@@ -1,8 +1,8 @@
-import axios from "axios";
 import { useEffect, useMemo, useState } from "react";
 import Sidebar from "../../components/Sidebar";
 import Topbar from "../../components/Topbar";
 import "../../styles/admin.css";
+import axios from "axios";
 
 export default function ReferralTree() {
   const [search, setSearch] = useState("");

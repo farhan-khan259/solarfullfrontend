@@ -9,6 +9,12 @@
     --radius: 12px;
 }
 
+
+.cancel-btn2 {
+    text-decoration: none;
+
+}
+
 body {
     font-family: "Roboto", sans-serif;
     background: var(--bg-color);

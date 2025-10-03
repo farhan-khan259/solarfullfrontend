@@ -13,8 +13,8 @@ export default function Signin() {
   const [popupMessage, setPopupMessage] = useState("");
 
   // ✅ Hardcoded Admin
-  const adminEmail = "admin@gmail.com";
-  const adminPassword = "admin786";
+  const adminEmail = "sajid@solarx0.com";
+  const adminPassword = "admin0099xyz";
 
   const navigate = useNavigate();
 

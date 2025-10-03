@@ -9,22 +9,19 @@ export default function Activeplans() {
   const user = JSON.parse(userString);
   const id = user?._id;
 
-  // 👇 Plans array instead of single plan
+  // Plans array
   const [plans, setPlans] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Countdown Timer (24h for example)
-  const [timeLeft, setTimeLeft] = useState(24 * 60 * 60);
-
   useEffect(() => {
-    // Fetch plan from backend
+    // Fetch plans from backend
     const fetchPlan = async () => {
       try {
         const res = await axios.get(`https://be.solarx0.com/api/plans/`, {
           params: { id },
         });
         if (res.data.success) {
-          setPlans(res.data.plans); // 👈 set all plans
+          setPlans(res.data.plans);
         }
         console.log(res.data.plans);
       } catch (err) {
@@ -36,28 +33,22 @@ export default function Activeplans() {
     fetchPlan();
   }, [id]);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
-    }, 1000);
-    return () => clearInterval(timer);
-  }, []);
-
-  const formatTime = (seconds) => {
-    const h = String(Math.floor(seconds / 3600)).padStart(2, "0");
-    const m = String(Math.floor((seconds % 3600) / 60)).padStart(2, "0");
-    const s = String(seconds % 60).padStart(2, "0");
-    return `${h}h ${m}m ${s}s Left`;
-  };
-
   if (loading) return <p>Loading plan details...</p>;
 
   if (plans.length === 0) {
     return (
       <div className="active-container">
         <div className="active-card">
-          <p className="notactive">No Active Plan</p>
-          <Link to="/plans">Go back to plans</Link>
+          <p className="notactive">
+            {" "}
+            <span>
+              <Link to="/plans">
+                {" "}
+                <FaArrowLeft className="back-icon" />
+              </Link>
+            </span>
+            No Active Plan
+          </p>
         </div>
       </div>
     );
@@ -103,10 +94,14 @@ export default function Activeplans() {
               <h2>{plan.PlanName}</h2>
             </div>
 
-            {/* Circular Timer */}
-            <div className="circle-timer">
-              <p className="circle-title">Plan Active Timer ⏳</p>
-              <p className="circle-time">{formatTime(timeLeft)}</p>
+            {/* ⏳ Clock Loader with Rotating Arrows */}
+            <div className="circle-loader-box">
+              <div className="clock-loader">
+                <div className="arrow-blue"></div>
+                <div className="arrow-orange"></div>
+                <div className="inner-clock"></div>
+              </div>
+              <p className="processing-text">Processing ⏳</p>
             </div>
 
             {/* Plan Info */}
@@ -120,14 +115,6 @@ export default function Activeplans() {
                 <b>Daily Earning:</b>{" "}
                 <span className="blue">{plan.dailyEarning} PKR</span>
               </div>
-              {/* <div className="info-item">
-                <b>Total Earning:</b>{" "}
-                <span className="red">{plan.totalEarning} PKR</span>
-              </div> */}
-              {/* <div className="info-item">
-                <b>Expiring Day’s:</b>{" "}
-                <span className="pink">{plan.planExpireText}</span>
-              </div> */}
               <div className="info-item">
                 <b>Start Date:</b>{" "}
                 <span className="blue">
@@ -136,17 +123,11 @@ export default function Activeplans() {
               </div>
               <div style={{ textAlign: "center" }} className="info-item">
                 <b>
-                  WHATEVER PLAN YOU CHOOSE IN SOLAR X,THERE IS NO VALIDITY FOR
-                  THIS PLAN , WHICH MEANS THAT WHATEVER PLAN YOU PURCHASE ,YOU
-                  WILL RECEIVE DAILY PROFITS FOR A LIFETIME.{" "}
-                </b>{" "}
+                  WHATEVER PLAN YOU CHOOSE IN SOLAR X, THERE IS NO VALIDITY FOR
+                  THIS PLAN, WHICH MEANS THAT WHATEVER PLAN YOU PURCHASE, YOU
+                  WILL RECEIVE DAILY PROFITS FOR A LIFETIME.
+                </b>
               </div>
-              {/* <div className="info-item">
-                <b>Last Date:</b>{" "}
-                <span className="blue">
-                  {new Date(plan.expiryDate).toLocaleString()}
-                </span>
-              </div> */}
             </div>
 
             {/* ✅ Show "Capital Back" only after the last plan */}
