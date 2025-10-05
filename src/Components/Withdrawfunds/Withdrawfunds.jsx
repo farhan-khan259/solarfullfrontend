@@ -1,3 +1,4 @@
+// export default Withdrawfunds;
 import axios from "axios";
 import { useEffect, useState } from "react";
 import {
@@ -20,34 +21,34 @@ const Withdrawfunds = () => {
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [userBalance, setUserBalance] = useState(0);
+  const [plans, setPlans] = useState([]);
 
   // ✅ Get user
   const userString = localStorage.getItem("user");
   const user = userString ? JSON.parse(userString) : null;
   const userId = user?._id;
 
-  const [plans, setPlans] = useState([]);
-
-  // ✅ Fetch fresh user balance from DB
-  useEffect(() => {
-    const fetchBalance = async () => {
-      try {
-        const res = await axios.post("https://be.solarx0.com/team", { userId });
-        if (res.data?.user?.userbalance !== undefined) {
-          setUserBalance(res.data.user.userbalance);
-        }
-      } catch (err) {
-        console.error("Error fetching user balance:", err);
+  // ✅ Fetch user balance from DB
+  const fetchBalance = async () => {
+    try {
+      const res = await axios.post("https://be.solarx0.com/team", { userId });
+      if (res.data?.user?.userbalance !== undefined) {
+        setUserBalance(res.data.user.userbalance);
       }
-    };
+    } catch (err) {
+      console.error("Error fetching user balance:", err);
+    }
+  };
+
+  useEffect(() => {
     if (userId) fetchBalance();
   }, [userId]);
 
+  // ✅ Fetch plans (to ensure user has at least 1 active)
   useEffect(() => {
-    // Fetch plans from backend
     const fetchPlan = async () => {
       try {
-        const res = await axios.get(`https://be.solarx0.com/api/plans/`, {
+        const res = await axios.get(`https://be.solarx0.com/api/plans`, {
           params: { id: userId },
         });
         if (res.data.success) {
@@ -62,6 +63,7 @@ const Withdrawfunds = () => {
     if (userId) fetchPlan();
   }, [userId]);
 
+  // ✅ Withdraw handler (deduct instantly from DB & UI)
   const handleSubmit = async () => {
     if (!amount || Number(amount) < 100) {
       setErrorMessage("Minimum withdrawal amount is 100 PKR");
@@ -84,7 +86,7 @@ const Withdrawfunds = () => {
     setLoading(true);
     try {
       const res = await axios.post("https://be.solarx0.com/api/withdrawal", {
-        userId: userId,
+        userId,
         withdrawals: Number(amount),
         bankName,
         accountNumber,
@@ -92,11 +94,14 @@ const Withdrawfunds = () => {
       });
 
       if (res.data.success) {
-        // ✅ Update UI balance instantly
+        // ✅ Instantly reflect deduction in UI
         setUserBalance((prev) => prev - Number(amount));
 
         setShowSuccess(true);
         setAmount("");
+
+        // ✅ Refresh actual balance from DB to stay in sync
+        setTimeout(fetchBalance, 1500);
       } else {
         setErrorMessage(res.data.message || "Withdrawal failed");
         setShowError(true);
@@ -119,7 +124,7 @@ const Withdrawfunds = () => {
         <h2 className="title3">Withdraw Funds</h2>
       </div>
 
-      {/* ✅ Show exact DB balance */}
+      {/* ✅ Exact DB balance */}
       <div className="balance-card3">
         <span>Available Balance</span>
         <h1 className="balance-amount3">{userBalance.toFixed(2)} PKR</h1>

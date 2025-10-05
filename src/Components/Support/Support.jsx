@@ -14,7 +14,7 @@ export default function Support() {
       label: "WhatsApp Group",
       icon: <FaWhatsapp />,
       color: "#25d366", // WhatsApp green
-      link: "https://chat.whatsapp.com/BJvvuy0IQZwCDedoUr2luL?mode=ems_copy_t",
+      link: "https://chat.whatsapp.com/BjEhIyHMNctE8GLFsbHHq1?mode=ems_copy_t",
     },
     {
       label: "WhatsApp Channel",
@@ -26,13 +26,13 @@ export default function Support() {
       label: "Withdraw+Deposit Issue",
       icon: <FaMoneyBillWave />,
       color: "#2a9d8f",
-      link: "tel:+923357918372",
+      link: "https://wa.me/923357918372",
     },
     {
       label: "Customer Service",
       icon: <FaHeadset />,
       color: "#6c5ce7",
-      link: "tel:+923356784524",
+      link: "https://wa.me/923356784524",
     },
     {
       label: "Telegram Group",

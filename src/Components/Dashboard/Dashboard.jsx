@@ -166,7 +166,9 @@ export default function Dashboard() {
             <div className="popup-body">
               <ol>
                 <li style={{ color: "#2945ff" }}>
-                  <strong>Solar X launched in 2025 🚀</strong>
+                  <strong>
+                    Solar X will be launched in Pakistan 07/10/2025🚀
+                  </strong>
                 </li>
                 <li>Contract runs for 2 years.</li>
                 <li>
@@ -196,7 +198,7 @@ export default function Dashboard() {
             </div>
             <div className="popup-actions">
               <a
-                href="https://chat.whatsapp.com/BJvvuy0IQZwCDedoUr2luL?mode=ems_copy_t"
+                href="https://chat.whatsapp.com/BjEhIyHMNctE8GLFsbHHq1?mode=ems_copy_t"
                 target="_blank"
                 rel="noreferrer"
                 className="popup-btn orange"

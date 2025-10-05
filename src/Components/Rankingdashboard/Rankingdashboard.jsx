@@ -4,7 +4,7 @@ import { FaArrowLeft, FaGift } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import "./Rankingdashboard.css";
 
-// Tier images
+// Tier Images
 import starterImg from "../../Assets/Pictures/plan1.jpg";
 import legendImg from "../../Assets/Pictures/plan10.jpg";
 import bronzeImg from "../../Assets/Pictures/plan2.jpg";
@@ -20,36 +20,10 @@ export default function Rankingdashboard() {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [claimedRewards, setClaimedRewards] = useState([]); // track claimed rewards
 
   const userString = localStorage.getItem("user");
   const user = userString ? JSON.parse(userString) : null;
   const userId = user?._id;
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        if (!userId) {
-          setError("User not logged in");
-          setLoading(false);
-          return;
-        }
-
-        const response = await axios.post(`https://be.solarx0.com/team`, {
-          userId: userId,
-        });
-        console.log("API Response:", response.data); // Debug log
-        setUserData(response.data);
-      } catch (err) {
-        console.error("Error fetching user data:", err);
-        setError("Failed to load ranking data");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUserData();
-  }, [userId]);
 
   const ranks = [
     {
@@ -134,21 +108,37 @@ export default function Rankingdashboard() {
     },
   ];
 
+  useEffect(() => {
+    const fetchUserData = async () => {
+      if (!userId) {
+        setError("User not logged in");
+        setLoading(false);
+        return;
+      }
+      try {
+        const response = await axios.post("https://be.solarx0.com/team", {
+          userId,
+        });
+        setUserData(response.data);
+      } catch (err) {
+        console.error("Error fetching user data:", err);
+        setError("Failed to load ranking data");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserData();
+  }, [userId]);
+
+  const personalCurrent = userData?.user?.UserInvestment || 0;
+  const teamCurrent = userData?.teamPlanInvestment || 0;
+
   const calculateCurrentLevel = () => {
-    if (!userData) return 0;
-
-    // CORRECTED: Use proper field names from API response
-    const personalInvestment = userData.user?.UserInvestment || 0;
-    const teamInvestment =
-      userData.directReferrals?.stats?.totalTeamDeposit || 0;
-
-    console.log("Personal Investment:", personalInvestment);
-    console.log("Team Investment:", teamInvestment);
-
     for (let i = ranks.length - 1; i >= 0; i--) {
       if (
-        personalInvestment >= ranks[i].personal &&
-        teamInvestment >= ranks[i].team
+        personalCurrent >= ranks[i].personal &&
+        teamCurrent >= ranks[i].team
       ) {
         return i;
       }
@@ -158,18 +148,56 @@ export default function Rankingdashboard() {
 
   const currentLevelIndex = calculateCurrentLevel();
 
-  const handleClaimReward = (rankIndex, rewardAmount) => {
-    if (claimedRewards.includes(rankIndex)) return;
+  const handleClaimReward = async (rankIndex, rewardAmount) => {
+    const rankName = ranks[rankIndex].name;
 
-    // Example: send to backend
-    axios.post("https://be.solarx0.com/claimReward", {
-      userId,
-      rank: ranks[rankIndex].name,
-      reward: rewardAmount,
-    });
+    // Check if already claimed based on userData
+    const alreadyClaimed = userData?.user?.claimedRanks?.some(
+      (claimedRank) => claimedRank.rankName === rankName
+    );
 
-    // Mark reward as claimed locally
-    setClaimedRewards((prev) => [...prev, rankIndex]);
+    if (alreadyClaimed) {
+      alert("Reward already claimed!");
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        "https://be.solarx0.com/api/claimReward",
+        {
+          userId,
+          rank: rankName,
+          reward: rewardAmount,
+        }
+      );
+
+      if (response.data.success) {
+        alert(
+          `🎉 ${
+            response.data.message
+          }\nNew Balance: PKR ${response.data.newBalance.toLocaleString()}`
+        );
+
+        // Refresh user data to get updated claimedRanks
+        const updatedResponse = await axios.post(
+          "https://be.solarx0.com/team",
+          {
+            userId,
+          }
+        );
+        setUserData(updatedResponse.data);
+      } else {
+        alert(response.data.message);
+      }
+    } catch (err) {
+      console.error("Claim reward error:", err);
+      console.error("Error response:", err.response?.data);
+      alert(
+        `Failed to claim reward: ${
+          err.response?.data?.message || "Please try again."
+        }`
+      );
+    }
   };
 
   if (loading) {
@@ -200,20 +228,8 @@ export default function Rankingdashboard() {
     );
   }
 
-  // CORRECTED: Get current values using proper field names
-  const personalCurrent = userData?.user?.UserInvestment || 0;
-  const teamCurrent = userData?.directReferrals?.stats?.totalTeamDeposit || 0;
-
-  console.log(
-    "Current Values - Personal:",
-    personalCurrent,
-    "Team:",
-    teamCurrent
-  );
-
   return (
     <div className="ranking-wrapper">
-      {/* Header */}
       <div className="ranking-header">
         <Link to="/setting" className="back-link">
           <FaArrowLeft />
@@ -221,29 +237,30 @@ export default function Rankingdashboard() {
         <h2>Ranking Dashboard</h2>
       </div>
 
-      {/* Rank Cards */}
       <div className="ranking-grid">
         {ranks.map((rank, index) => {
-          // CORRECTED: Use proper field names for calculations
           const personalProgress = Math.min(
             (personalCurrent / rank.personal) * 100,
             100
           );
           const teamProgress = Math.min((teamCurrent / rank.team) * 100, 100);
-
-          // Calculate overall progress (average of both)
           const overallProgress = (personalProgress + teamProgress) / 2;
 
-          const alreadyClaimed = claimedRewards.includes(index);
+          // Check if reward is already claimed from backend data
+          const alreadyClaimed = userData?.user?.claimedRanks?.some(
+            (claimedRank) => claimedRank.rankName === rank.name
+          );
+
+          const canClaim =
+            personalCurrent >= rank.personal && teamCurrent >= rank.team;
 
           return (
             <div key={index} className="rank-card">
-              {/* Top Section */}
               <div className="rank-top">
                 <img src={rank.img} alt={rank.name} />
                 <div className="rank-title">
                   <h3>{rank.name}</h3>
-                  {index !== 0 && rank.level && (
+                  {index !== 0 && (
                     <span className="level-pill">Level {rank.level}</span>
                   )}
                   {index === currentLevelIndex && (
@@ -252,22 +269,8 @@ export default function Rankingdashboard() {
                 </div>
               </div>
 
-              {/* Requirements */}
-              <div className="requirements">
-                <div className="requirement">
-                  <span>Investment:</span>
-                  <strong>PKR {personalCurrent.toLocaleString()}</strong>
-                </div>
-                <div className="requirement">
-                  <span>Team Investment:</span>
-                  <strong>PKR {teamCurrent.toLocaleString()}</strong>
-                </div>
-              </div>
-
-              {/* Detailed Progress Section */}
               <div className="progress-section">
                 <h4>Progress to {rank.name}</h4>
-
                 <div className="progress-grid">
                   {/* Team Investment */}
                   <div className="progress-box">
@@ -276,16 +279,13 @@ export default function Rankingdashboard() {
                     </p>
                     <p>You Invested: PKR {teamCurrent.toLocaleString()}</p>
                     <p>
-                      More Needed:{" "}
-                      {Math.max(rank.team - teamCurrent, 0).toLocaleString()}{" "}
-                      PKR
+                      More Needed: PKR{" "}
+                      {Math.max(rank.team - teamCurrent, 0).toLocaleString()}
                     </p>
                     <div className="progress-bar">
                       <div
                         className="progress-fill"
-                        style={{
-                          width: `${teamProgress}%`,
-                        }}
+                        style={{ width: `${teamProgress}%` }}
                       ></div>
                     </div>
                     <span className="progress-percent">
@@ -301,19 +301,16 @@ export default function Rankingdashboard() {
                     </p>
                     <p>You Invested: PKR {personalCurrent.toLocaleString()}</p>
                     <p>
-                      More Needed:{" "}
+                      More Needed: PKR{" "}
                       {Math.max(
                         rank.personal - personalCurrent,
                         0
-                      ).toLocaleString()}{" "}
-                      PKR
+                      ).toLocaleString()}
                     </p>
                     <div className="progress-bar">
                       <div
                         className="progress-fill"
-                        style={{
-                          width: `${personalProgress}%`,
-                        }}
+                        style={{ width: `${personalProgress}%` }}
                       ></div>
                     </div>
                     <span className="progress-percent">
@@ -321,20 +318,17 @@ export default function Rankingdashboard() {
                     </span>
                   </div>
 
-                  {/* Your Team Total Investment */}
+                  {/* Summary */}
                   <div className="progress-box">
                     <p>Your Team Total Investment</p>
                     <strong>PKR {teamCurrent.toLocaleString()}</strong>
                   </div>
-
-                  {/* Your Total Investment */}
                   <div className="progress-box">
                     <p>Your Total Investment</p>
                     <strong>PKR {personalCurrent.toLocaleString()}</strong>
                   </div>
                 </div>
 
-                {/* Final Overall Progress */}
                 <div className="progress-bar overall-progress">
                   <div
                     className="progress-fill"
@@ -345,9 +339,8 @@ export default function Rankingdashboard() {
                   {overallProgress.toFixed(1)}%
                 </span>
 
-                {/* Reward Button */}
-                {personalCurrent >= rank.personal &&
-                teamCurrent >= rank.team ? (
+                {/* Reward Claim */}
+                {canClaim ? (
                   alreadyClaimed ? (
                     <p className="reward claimed">
                       ✅ Reward Claimed: PKR {rank.reward.toLocaleString()}
