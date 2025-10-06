@@ -31,12 +31,12 @@
 }
 
 .ourinfo-title span {
-    color: #1976d2;
+    color: #2945ff;
     /* Solar deep blue */
 }
 
 .back-arrow {
-    color: #1976d2;
+    color: #2945ff;
     font-size: 1.5rem;
     transform: translateX(-20px);
     cursor: pointer;

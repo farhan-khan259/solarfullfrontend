@@ -167,7 +167,7 @@ export default function Dashboard() {
               <ol>
                 <li style={{ color: "#2945ff" }}>
                   <strong>
-                    Solar X will be launched in Pakistan 07/10/2025🚀
+                    Solar X will be launched in Pakistan 07/10/2025
                   </strong>
                 </li>
                 <li>Contract runs for 2 years.</li>

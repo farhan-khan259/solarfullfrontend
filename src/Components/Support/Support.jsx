@@ -44,13 +44,13 @@ export default function Support() {
       label: "Telegram Service",
       icon: <FaHeadset />,
       color: "#264653",
-      link: "https://t.me/Solarx0fficial",
+      link: "https://t.me/SolarX_TeamSupport",
     },
     {
       label: "Deposit+Withdraw (Telegram)",
       icon: <FaMoneyBillWave />,
       color: "#00b4d8",
-      link: "https://t.me/Solarx0fficial",
+      link: "https://t.me/SolarX_TeamSupport",
     },
   ];
 

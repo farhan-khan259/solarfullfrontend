@@ -17,11 +17,11 @@ export default function OurInfo() {
         </h1>
 
         <p className="ourinfo-text">
-          At <strong>SolarX</strong>, we are revolutionizing the energy
-          landscape in Pakistan by harnessing the power of the sun! ☀ Our
-          platform is designed to connect investors with innovative solar energy
-          projects, ensuring that everyone can benefit from sustainable energy
-          solutions. 🌍💡
+          At <strong style={{ color: "#2945ff" }}>SolarX</strong>, we are
+          revolutionizing the energy landscape in Pakistan by harnessing the
+          power of the sun! ☀ Our platform is designed to connect investors with
+          innovative solar energy projects, ensuring that everyone can benefit
+          from sustainable energy solutions. 🌍💡
         </p>
 
         <p className="ourinfo-text">

@@ -26,7 +26,7 @@ const partners = [
 export default function Newsboard() {
   return (
     <div className="partners-section">
-      <h2 className="partners-title">Our Partners</h2>
+      <h2 className="partners-title">Our Investment Partners</h2>
       <div className="partners-grid">
         {partners.map((partner, i) => (
           <div key={i} className="partner-box">
