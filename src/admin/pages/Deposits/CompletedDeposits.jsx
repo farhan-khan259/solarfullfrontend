@@ -12,7 +12,7 @@ export default function CompletedDeposits() {
   useEffect(() => {
     const fetchDeposits = async () => {
       try {
-        const res = await axios.get("http://be.solarx0.com/api/payments");
+        const res = await axios.get("https://be.solarx0.com/api/payments");
         // ✅ backend returns { success, data: [...] }
         setDeposits(res.data.data || []);
       } catch (error) {
@@ -76,12 +76,12 @@ export default function CompletedDeposits() {
                   <td data-label="Proof">
                     {d.screenshot ? (
                       <a
-                        href={`http://localhost:3005/${d.screenshot}`}
+                        href={`https://be.solarx0.com/${d.screenshot}`}
                         target="_blank"
                         rel="noreferrer"
                       >
                         <img
-                          src={`http://localhost:3005/${d.screenshot}`}
+                          src={`https://be.solarx0.com/${d.screenshot}`}
                           alt="Proof"
                           className="deposit-proof-thumb"
                         />
