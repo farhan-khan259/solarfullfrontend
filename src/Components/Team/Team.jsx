@@ -189,7 +189,7 @@ const TeamDataScreen = ({ teamData }) => {
         </div>
         <div className="summary-card green">
           <h4>Total Team Commission</h4>
-          <p>{teamData.commissionSummary.grandTotalCommission}</p>
+          <p>{Math.floor(teamData.commissionSummary.grandTotalCommission)}</p>
         </div>
       </div>
 

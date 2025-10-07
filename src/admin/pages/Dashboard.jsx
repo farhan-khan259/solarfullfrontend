@@ -75,20 +75,20 @@ export default function Dashboard() {
   const cards = [
     { title: "Today Users Join", value: stats.todayUsers },
     {
-      title: "Today Deposit (PKR)",
+      title: "Today Deposit ",
       value: `PKR ${stats.todayDeposits?.toLocaleString()}`,
     },
     {
-      title: "Today Withdraw (PKR)",
+      title: "Today Withdraw ",
       value: `PKR ${stats.todayWithdrawals?.toLocaleString()}`,
     },
     { title: "Total Users", value: stats.totalUsers },
     {
-      title: "Total Deposits (PKR)",
+      title: "Total Deposits ",
       value: `PKR ${stats.totalDeposits?.toLocaleString()}`,
     },
     {
-      title: "Total Withdrawals (PKR)",
+      title: "Total Withdrawals ",
       value: `PKR ${stats.totalWithdrawals?.toLocaleString()}`,
     },
     {
@@ -111,31 +111,44 @@ export default function Dashboard() {
         <div className="dashboard-container">
           {/* Cards */}
           <div className="dashboard-cards">
-            {cards.map((c, i) =>
-              c.link ? (
+            {cards.map((c, i) => {
+              // 🎨 Define custom color styles
+              let bgColor = "#fff";
+              let textColor = "#000";
+
+              if (
+                c.title === "Pending Deposits" ||
+                c.title === "Pending Withdrawals"
+              ) {
+                bgColor = "#1e88e5"; // nice blue
+                textColor = "#fff"; // white text
+              } else if (i < 3) {
+                bgColor = "#e53935"; // red for first 3
+                textColor = "#fff";
+              }
+
+              const cardContent = (
+                <Card
+                  title={c.title}
+                  value={c.value}
+                  color={bgColor}
+                  textColor={textColor}
+                />
+              );
+
+              return c.link ? (
                 <Link
                   to={c.link}
                   key={i}
                   className="card-link"
                   style={{ textDecoration: "none" }}
                 >
-                  <Card
-                    title={c.title}
-                    value={c.value}
-                    color={i < 3 ? "#e53935" : "#fff"}
-                    textColor={i < 3 ? "#fff" : "#000"}
-                  />
+                  {cardContent}
                 </Link>
               ) : (
-                <Card
-                  key={i}
-                  title={c.title}
-                  value={c.value}
-                  color={i < 3 ? "#e53935" : "#fff"}
-                  textColor={i < 3 ? "#fff" : "#000"}
-                />
-              )
-            )}
+                <div key={i}>{cardContent}</div>
+              );
+            })}
           </div>
 
           {/* Charts */}
