@@ -1,7 +1,8 @@
 // src/admin/components/Topbar.jsx
 import { FaBell, FaSearch, FaUserCircle } from "react-icons/fa";
-import "../styles/topbar.css";
+import { Link } from "react-router-dom"; // ✅ Add this
 import Sidebar from "../components/Sidebar";
+import "../styles/topbar.css";
 
 const Topbar = () => {
   return (
@@ -20,10 +21,10 @@ const Topbar = () => {
 
       <div className="topbar-right">
         <FaBell className="topbar-icon" />
-        <div className="admin-profile">
+        <Link to="/" className="admin-profile">
           <FaUserCircle className="profile-icon" />
-          <span className="admin-name">Admin</span>
-        </div>
+          <span className="admin-name">Logout</span>
+        </Link>
       </div>
     </div>
   );

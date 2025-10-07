@@ -1,43 +1,41 @@
-import { useEffect, useState, useMemo } from "react";
+import axios from "axios";
+import { useEffect, useMemo, useState } from "react";
 import Sidebar from "../../components/Sidebar";
 import Topbar from "../../components/Topbar";
 import "../../styles/userlist.css";
-import axios from "axios";
 
 export default function PendingWithdrawals() {
   const [q, setQ] = useState("");
-  const [withdrawal, setwithdrawal] = useState([]);
+  const [withdrawal, setWithdrawal] = useState([]);
 
-  // Fetch withdrawal from backend
+  // Fetch withdrawal data from backend
   useEffect(() => {
-    const fetchwithdrawal = async () => {
+    const fetchWithdrawal = async () => {
       try {
         const res = await axios.get("https://be.solarx0.com/api/payments");
-        // ✅ backend returns { success, payments }
         console.log(res.data.data);
-        setwithdrawal(res.data.data || []);
+        setWithdrawal(res.data.data || []);
       } catch (error) {
         console.error("Error fetching withdrawal:", error);
-        setwithdrawal([]);
+        setWithdrawal([]);
       }
     };
 
-    fetchwithdrawal();
+    fetchWithdrawal();
   }, []);
 
-  // Search + filter
-  // Search + filter
+  // Filter pending withdrawals + search
   const filtered = useMemo(() => {
     return (withdrawal || [])
-      .filter((d) => d.withdrawalStatus === "pending") // ✅ only pending
+      .filter((d) => d.withdrawalStatus === "pending")
       .filter((d) => JSON.stringify(d).toLowerCase().includes(q.toLowerCase()));
   }, [withdrawal, q]);
 
-  // Update status
+  // ✅ Handle Approve/Reject
   const handleStatusChange = async (userId, newStatus, _id) => {
     try {
       const res = await axios.post("https://be.solarx0.com/api/status", {
-        userId: userId,
+        userId,
         status: newStatus,
         type: "withdrawal",
         requesId: _id,
@@ -45,17 +43,41 @@ export default function PendingWithdrawals() {
 
       alert(res.data.message);
 
-      // ✅ Update frontend state without reload
-      setwithdrawal((prev) =>
+      // Update UI instantly
+      setWithdrawal((prev) =>
         prev.map((d) =>
-          d._id === _id ? { ...d, depositStatus: newStatus } : d
+          d._id === _id ? { ...d, withdrawalStatus: newStatus } : d
         )
       );
     } catch (error) {
       console.error("Error updating status:", error);
+      alert("Failed to update status.");
     }
   };
-  console.log(q);
+
+  // ✅ Admin Login to User Account
+  const handleLoginAsUser = async (userId) => {
+    if (!window.confirm("Login to this user's account?")) return;
+
+    try {
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
+
+      const response = await axios.post(
+        `https://be.solarx0.com/api/adminLoginUserAccount`,
+        { userId }
+      );
+
+      if (response.status === 200) {
+        alert("Logging in as user...");
+        localStorage.setItem("user", JSON.stringify({ _id: userId }));
+        window.location.href = "/dashboard"; // Redirect to user's dashboard
+      }
+    } catch (error) {
+      console.error("Error logging in as user:", error);
+      alert("Failed to login as user account.");
+    }
+  };
 
   return (
     <div className="admin-layout">
@@ -83,7 +105,7 @@ export default function PendingWithdrawals() {
                 <th>Amount</th>
                 <th>Date</th>
                 <th>Account Number</th>
-                <th>Account Holder Name</th>
+                <th>Holder Name</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -91,7 +113,7 @@ export default function PendingWithdrawals() {
               {filtered.map((d) => (
                 <tr key={d._id}>
                   <td data-label="ID">{d._id}</td>
-                  <td data-label="User">{d.user_id}</td>
+                  <td data-label="User ID">{d.user_id}</td>
                   <td data-label="Method">{d.payment_method}</td>
                   <td data-label="Amount">
                     PKR {d.withdrawalsAmount?.toLocaleString()}
@@ -99,32 +121,42 @@ export default function PendingWithdrawals() {
                   <td data-label="Date">
                     {new Date(d.createdAt).toLocaleDateString()}
                   </td>
-                  <td data-label="Proof">{d.accountNumber}</td>
-                  <td data-label="Status">{d.accountHolderName}</td>
+                  <td data-label="Account Number">{d.accountNumber}</td>
+                  <td data-label="Holder Name">{d.accountHolderName}</td>
                   <td data-label="Actions">
-                    <button
-                      className="action-btn view"
-                      onClick={() =>
-                        handleStatusChange(d.user_id, "approved", d._id)
-                      }
-                    >
-                      Approve
-                    </button>
-                    <button
-                      className="action-btn delete"
-                      onClick={() =>
-                        handleStatusChange(d.user_id, "reject", d._id)
-                      }
-                    >
-                      Reject
-                    </button>
+                    <div className="action-buttons">
+                      <button
+                        className="action-btn view"
+                        onClick={() =>
+                          handleStatusChange(d.user_id, "approved", d._id)
+                        }
+                      >
+                        Approve
+                      </button>
+                      <button
+                        className="action-btn delete"
+                        onClick={() =>
+                          handleStatusChange(d.user_id, "reject", d._id)
+                        }
+                      >
+                        Reject
+                      </button>
+                      <button
+                        className="action-btn login"
+                        onClick={() => handleLoginAsUser(d.user_id)}
+                      >
+                        Login
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
 
-          {filtered.length === 0 && <p>No pending deposits found.</p>}
+          {filtered.length === 0 && (
+            <p style={{ marginTop: 20 }}>No pending withdrawals found.</p>
+          )}
         </div>
       </div>
     </div>

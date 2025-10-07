@@ -8,12 +8,12 @@ export default function CompletedDeposits() {
   const [q, setQ] = useState("");
   const [deposits, setDeposits] = useState([]);
 
-  // Fetch deposits from backend
+  // ✅ Fetch deposits from backend
   useEffect(() => {
     const fetchDeposits = async () => {
       try {
-        const res = await axios.get("https://localhost:3005/api/payments");
-        // ✅ backend returns { success, payments }
+        const res = await axios.get("http://be.solarx0.com/api/payments");
+        // ✅ backend returns { success, data: [...] }
         setDeposits(res.data.data || []);
       } catch (error) {
         console.error("Error fetching deposits:", error);
@@ -24,16 +24,12 @@ export default function CompletedDeposits() {
     fetchDeposits();
   }, []);
 
-  // Search + filter
-  // Search + filter
+  // ✅ Search + filter for approved deposits only
   const filtered = useMemo(() => {
     return (deposits || [])
-      .filter((d) => d.depositStatus === "approved") // ✅ only pending
+      .filter((d) => d.depositStatus === "approved")
       .filter((d) => JSON.stringify(d).toLowerCase().includes(q.toLowerCase()));
   }, [deposits, q]);
-  console.log(filtered);
-  // Update status
-  console.log(deposits);
 
   return (
     <div className="admin-layout">
@@ -43,6 +39,7 @@ export default function CompletedDeposits() {
         <div className="admin-content">
           <h2>Completed Deposits</h2>
 
+          {/* 🔍 Search Input */}
           <div style={{ marginBottom: 12 }}>
             <input
               placeholder="Search UID, method, amount..."
@@ -52,6 +49,7 @@ export default function CompletedDeposits() {
             />
           </div>
 
+          {/* 📋 Table */}
           <table className="userlist-table">
             <thead>
               <tr>
@@ -60,6 +58,7 @@ export default function CompletedDeposits() {
                 <th>Method</th>
                 <th>Amount</th>
                 <th>Date</th>
+                <th>Proof</th> {/* ✅ Added screenshot column */}
               </tr>
             </thead>
             <tbody>
@@ -68,15 +67,35 @@ export default function CompletedDeposits() {
                   <td data-label="ID">{d._id}</td>
                   <td data-label="User">{d.user_id}</td>
                   <td data-label="Method">{d.payment_method}</td>
-                  <td data-label="Amount">PKR {d.depositsAmount}</td>
+                  <td data-label="Amount">
+                    PKR {d.depositsAmount?.toLocaleString()}
+                  </td>
                   <td data-label="Date">
                     {new Date(d.createdAt).toLocaleDateString()}
+                  </td>
+                  <td data-label="Proof">
+                    {d.screenshot ? (
+                      <a
+                        href={`http://localhost:3005/${d.screenshot}`}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <img
+                          src={`http://localhost:3005/${d.screenshot}`}
+                          alt="Proof"
+                          className="deposit-proof-thumb"
+                        />
+                      </a>
+                    ) : (
+                      <span>No proof</span>
+                    )}
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
 
+          {/* 🟡 Empty state */}
           {filtered.length === 0 && <p>No completed deposits found.</p>}
         </div>
       </div>

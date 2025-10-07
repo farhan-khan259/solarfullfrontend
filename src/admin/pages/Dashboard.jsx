@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom"; // ✅ Add this
 import Card from "../components/Card";
 import Charts from "../components/Charts";
 import Topbar from "../components/Topbar";
@@ -93,10 +94,12 @@ export default function Dashboard() {
     {
       title: "Pending Deposits",
       value: stats.pendingDeposits,
+      link: "/admin/deposits/pending", // ✅ Add link here
     },
     {
       title: "Pending Withdrawals",
       value: stats.pendingWithdrawals,
+      link: "/admin/withdrawals/pending", // ✅ Add link here
     },
     { title: "Active Plans", value: stats.activePlans },
   ];
@@ -108,22 +111,38 @@ export default function Dashboard() {
         <div className="dashboard-container">
           {/* Cards */}
           <div className="dashboard-cards">
-            {cards.map((c, i) => (
-              <Card
-                key={i}
-                title={c.title}
-                value={c.value}
-                color={i < 3 ? "#e53935" : "#fff"} // first 3 cards red, rest white
-                textColor={i < 3 ? "#fff" : "#000"} // first 3 white text, rest black
-              />
-            ))}
+            {cards.map((c, i) =>
+              c.link ? (
+                <Link
+                  to={c.link}
+                  key={i}
+                  className="card-link"
+                  style={{ textDecoration: "none" }}
+                >
+                  <Card
+                    title={c.title}
+                    value={c.value}
+                    color={i < 3 ? "#e53935" : "#fff"}
+                    textColor={i < 3 ? "#fff" : "#000"}
+                  />
+                </Link>
+              ) : (
+                <Card
+                  key={i}
+                  title={c.title}
+                  value={c.value}
+                  color={i < 3 ? "#e53935" : "#fff"}
+                  textColor={i < 3 ? "#fff" : "#000"}
+                />
+              )
+            )}
           </div>
 
           {/* Charts */}
           <div className="charts-section">
             <Charts
-              userGrowth={stats.userGrowth} // raw API: { _id, count, month }
-              monthlyDeposits={stats.monthlyDeposits} // raw API: { _id, total }
+              userGrowth={stats.userGrowth}
+              monthlyDeposits={stats.monthlyDeposits}
             />
           </div>
 
@@ -176,7 +195,6 @@ export default function Dashboard() {
                     <th>ID</th>
                     <th>User</th>
                     <th>Amount</th>
-
                     <th>Status</th>
                     <th>Date</th>
                   </tr>
@@ -187,7 +205,6 @@ export default function Dashboard() {
                       <td>W{String(index + 1).padStart(3, "0")}</td>
                       <td>{w.user_id}</td>
                       <td>{w.withdrawalsAmount?.toLocaleString()}</td>
-
                       <td
                         className={
                           w.withdrawalStatus === "completed"

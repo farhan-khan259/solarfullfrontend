@@ -8,7 +8,44 @@
     animation: fadeIn 0.5s ease-in-out;
     max-width: 1200px;
     margin: auto;
+
 }
+
+
+
+.action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+}
+
+.action-btn.login {
+    background-color: #6f42c1;
+    color: white;
+}
+
+.action-btn.login:hover {
+    background-color: #5a32a3;
+}
+
+
+
+.deposit-proof-thumb {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.deposit-proof-thumb:hover {
+    transform: scale(1.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+
 
 .userlist-container h2 {
     margin-bottom: 20px;
