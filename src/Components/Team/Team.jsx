@@ -347,10 +347,10 @@ const TeamDetailsScreen = ({ teamData }) => {
           teamData.directReferrals.members.map((user, index) => (
             <div className="user-cardteam" key={index}>
               <br />
-              <p>
+              {/* <p>
                 <strong>Upliner:</strong>{" "}
                 <span className="blue">{teamData.user.fullName}</span>
-              </p>
+              </p> */}
               <p>
                 <strong>User Name:</strong>{" "}
                 <span className="blue">{user.fullName}</span>
@@ -387,10 +387,10 @@ const TeamDetailsScreen = ({ teamData }) => {
           teamData.indirectReferrals.members.map((user, index) => (
             <div className="user-cardteam" key={index}>
               <br />
-              <p>
+              {/* <p>
                 <strong>Upliner:</strong>{" "}
                 <span className="blue">{teamData.user.fullName}</span>
-              </p>
+              </p> */}
               <p>
                 <strong>User Name:</strong>{" "}
                 <span className="blue">{user.fullName}</span>
@@ -427,10 +427,10 @@ const TeamDetailsScreen = ({ teamData }) => {
           teamData.extendedReferrals.members.map((user, index) => (
             <div className="user-cardteam" key={index}>
               <br />
-              <p>
+              {/* <p>
                 <strong>Upliner:</strong>{" "}
                 <span className="blue">{teamData.user.fullName}</span>
-              </p>
+              </p> */}
               <p>
                 <strong>User Name:</strong>{" "}
                 <span className="blue">{user.fullName}</span>
