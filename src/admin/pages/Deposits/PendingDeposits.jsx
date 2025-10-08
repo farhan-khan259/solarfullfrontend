@@ -241,7 +241,9 @@ export default function PendingDeposits() {
               {filtered.map((d) => (
                 <tr key={d._id}>
                   <td data-label="ID">{d._id}</td>
-                  <td data-label="User">{d.user_id}</td>
+                  <td data-label="User">
+                    {d.user_id?.randomCode || d.user_id?._id || "N/A"}
+                  </td>
                   <td data-label="Method">{d.payment_method}</td>
                   <td data-label="Amount">
                     PKR {d.depositsAmount?.toLocaleString()}

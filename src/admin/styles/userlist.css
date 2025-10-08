@@ -17,9 +17,9 @@
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
+    margin-left: 50px;
     justify-content: center;
 }
-
 .action-btn.login {
     background-color: #6f42c1;
     color: white;

@@ -3,19 +3,16 @@ import { useState } from "react";
 import {
   FaBars,
   FaChartLine,
-  FaCog,
+  FaChevronDown,
+  FaChevronUp,
   FaExchangeAlt,
   FaFileAlt,
   FaMoneyCheckAlt,
   FaTachometerAlt,
   FaTags,
   FaTimes,
-  FaUserFriends,
   FaUsers,
-  FaUserShield,
   FaWallet,
-  FaChevronDown,
-  FaChevronUp,
 } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import "../styles/sidebar.css";
@@ -150,105 +147,6 @@ const Sidebar = () => {
                     onClick={() => setOpen(false)}
                   >
                     Completed Withdrawals
-                  </NavLink>
-                  <NavLink
-                    to="/admin/withdrawals/settings"
-                    onClick={() => setOpen(false)}
-                  >
-                    Withdrawal Settings
-                  </NavLink>
-                </div>
-              )}
-            </div>
-
-            {/* Referrals dropdown */}
-            <div className="dropdown-section">
-              <button
-                className="dropdown-btn"
-                onClick={() => toggleDropdown("referrals")}
-              >
-                <FaUserFriends />
-                <span>Referrals</span>
-                {dropdowns.referrals ? <FaChevronUp /> : <FaChevronDown />}
-              </button>
-              {dropdowns.referrals && (
-                <div className="dropdown-links">
-                  <NavLink
-                    to="/admin/referrals/tree"
-                    onClick={() => setOpen(false)}
-                  >
-                    Referral Tree
-                  </NavLink>
-                  <NavLink
-                    to="/admin/referrals/settings"
-                    onClick={() => setOpen(false)}
-                  >
-                    Referral Settings
-                  </NavLink>
-                </div>
-              )}
-            </div>
-
-            {/* Settings dropdown */}
-            <div className="dropdown-section">
-              <button
-                className="dropdown-btn"
-                onClick={() => toggleDropdown("settings")}
-              >
-                <FaCog />
-                <span>Settings</span>
-                {dropdowns.settings ? <FaChevronUp /> : <FaChevronDown />}
-              </button>
-              {dropdowns.settings && (
-                <div className="dropdown-links">
-                  <NavLink
-                    to="/admin/settings/payment"
-                    onClick={() => setOpen(false)}
-                  >
-                    Payment Settings
-                  </NavLink>
-                  <NavLink
-                    to="/admin/settings/security"
-                    onClick={() => setOpen(false)}
-                  >
-                    Security Settings
-                  </NavLink>
-                  <NavLink
-                    to="/admin/settings/notifications"
-                    onClick={() => setOpen(false)}
-                  >
-                    Notification Settings
-                  </NavLink>
-                </div>
-              )}
-            </div>
-
-            {/* Admin dropdown */}
-            <div className="dropdown-section">
-              <button
-                className="dropdown-btn"
-                onClick={() => toggleDropdown("admins")}
-              >
-                <FaUserShield />
-                <span>Admins</span>
-                {dropdowns.admins ? <FaChevronUp /> : <FaChevronDown />}
-              </button>
-              {dropdowns.admins && (
-                <div className="dropdown-links">
-                  <NavLink to="/admin/admins" onClick={() => setOpen(false)}>
-                    Admin List
-                  </NavLink>
-                  <NavLink
-                    to="/admin/admins/roles"
-                    onClick={() => setOpen(false)}
-                  >
-                    Roles
-                  </NavLink>
-                  <NavLink
-                    to="/admin/admins/logs"
-                    onClick={() => setOpen(false)}
-                  >
-                    Admin Logs
                   </NavLink>
                 </div>
               )}
