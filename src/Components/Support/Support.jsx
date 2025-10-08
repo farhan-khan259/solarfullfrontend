@@ -14,7 +14,7 @@ export default function Support() {
       label: "WhatsApp Group",
       icon: <FaWhatsapp />,
       color: "#25d366", // WhatsApp green
-      link: "https://chat.whatsapp.com/Lpr8zYBWQS85O5fjSC0mdh?mode=ems_copy_t",
+      link: "https://chat.whatsapp.com/FjcgxLqlfzW7HGqvBigxjo?mode=ems_copy_t",
     },
     {
       label: "WhatsApp Channel",
