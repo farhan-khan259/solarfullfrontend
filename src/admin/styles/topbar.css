@@ -11,6 +11,11 @@
     z-index: 150;
 }
 
+.solarxlogoadmin {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+}
 
 .topbar-right a {
     text-decoration: none;

@@ -1,6 +1,7 @@
 // src/admin/components/Topbar.jsx
-import { FaUserCircle } from "react-icons/fa";
+
 import { Link } from "react-router-dom"; // ✅ Add this
+import solarxlogoadmin from "../../Assets/Pictures/solarxlogoadmin.jpeg";
 import Sidebar from "../components/Sidebar";
 import "../styles/topbar.css";
 
@@ -14,7 +15,7 @@ const Topbar = () => {
 
       <div className="topbar-right">
         <Link to="/" className="admin-profile">
-          <FaUserCircle className="profile-icon" />
+          <img className="solarxlogoadmin" src={solarxlogoadmin} alt="" />
           <span className="admin-name">Logout</span>
         </Link>
       </div>

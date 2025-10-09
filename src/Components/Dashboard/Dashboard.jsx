@@ -235,21 +235,43 @@ export default function Dashboard() {
         </div>
         <div className="header-rightd">
           <div className="notification-wrapper">
-            <FiBell
-              className="header-icond"
-              title="Notifications"
+            <div
+              className="notification-icon"
               onClick={() => setShowAnnouncements((prev) => !prev)}
-            />
+            >
+              <FiBell className="header-icond" title="Notifications" />
+              {announcements.length > 0 && (
+                <span className="notification-badge">
+                  {announcements.length}
+                </span>
+              )}
+            </div>
+
             {showAnnouncements && (
               <div className="announcement-popup">
                 <h4>📢 Announcements</h4>
-                <ul>
+                <ul className="announcement-list">
                   {announcements.length > 0 ? (
-                    announcements.map((item) => (
-                      <li key={item._id}>{item.message}</li>
-                    ))
+                    announcements.map((item, index) => {
+                      const colors = ["orange", "blue"];
+                      const colorClass = colors[index % colors.length];
+                      return (
+                        <li
+                          key={item._id}
+                          className={`announcement-item ${colorClass}`}
+                        >
+                          <div className="announcement-box">
+                            <p>{item.message}</p>
+                          </div>
+                        </li>
+                      );
+                    })
                   ) : (
-                    <li>No new announcements</li>
+                    <li className="announcement-item grey">
+                      <div className="announcement-box">
+                        <p>No new announcements</p>
+                      </div>
+                    </li>
                   )}
                 </ul>
               </div>

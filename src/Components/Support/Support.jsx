@@ -32,7 +32,7 @@ export default function Support() {
       label: "Customer Service",
       icon: <FaHeadset />,
       color: "#6c5ce7",
-      link: "https://wa.me/923257765123?text=Hi%20SolarX%20Team%21%20I%20need%20some%20help%20with%20my%20account!",
+      link: "https://api.whatsapp.com/send?phone=923257765123&text=Hi%20SolarX%20Team%21%20I%20need%20some%20help%20with%20my%20account",
     },
     {
       label: "Telegram Group",

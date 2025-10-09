@@ -442,7 +442,8 @@ export default function UserDetails() {
               <strong>Email:</strong> {user.email || "N/A"}
             </p>
             <p>
-              <strong>Phone:</strong> {user.phoneNumber || "N/A"}
+              <strong>Phone:</strong>{" "}
+              {user.phoneNumber || user.whatsappNumber || "N/A"}
             </p>
             <p>
               <strong>Status:</strong>
@@ -483,11 +484,11 @@ export default function UserDetails() {
               Subtract Balance
             </button>
 
-            <button className="btn blue" onClick={handleLogin}>
-              Login to Account
-            </button>
             <button className="btn purple" onClick={handleDeletePlan}>
               Delete Plan
+            </button>
+            <button className="btn blue" onClick={handleLogin}>
+              Login to Account
             </button>
           </div>
         </div>
