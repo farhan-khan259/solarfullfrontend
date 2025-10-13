@@ -163,64 +163,45 @@ export default function Dashboard() {
                 ✖
               </button>
             </div>
-            <div className="popup-body">
+            <div className="popup-body urdu">
               <ol>
-                <li style={{ color: "#2945ff" }}>
+                <li>
                   <strong>
-                    SolarX launching in Pakistan on{" "}
-                    <span style={{ color: "orange", fontWeight: "bold" }}>
+                    <span className="highlight-orange">
                       07 / October / 2025
                     </span>{" "}
+                    کو SolarX پاکستان میں لانچ ہو گیا ہے۔
                   </strong>
                 </li>
                 <li>
-                  🎟️ یہ پاکستان کا پہلا سرمایہ کاری + رچ ٹکٹ + گیمنگ پلیٹ فارم
-                  ہے! 🎮
+                  یہ پاکستان کا پہلا سرمایہ کاری + رچ ٹکٹ + گیمنگ پلیٹ فارم ہے
+                  🎮
                 </li>
                 <li>
                   رچ ٹکٹ کی قیمت کم از کم{" "}
-                  <span style={{ color: "orange", fontWeight: "bold" }}>
-                    500
-                  </span>{" "}
-                  روپے ہے! 💸
+                  <span className="highlight-orange">500</span> روپے ہے
                 </li>
                 <li>
-                  💰 کم از کم ڈپازٹ کی رقم صرف{" "}
-                  <span style={{ color: "orange", fontWeight: "bold" }}>
-                    500
-                  </span>{" "}
-                  روپے ہے!
+                  کم از کم ڈپازٹ کی رقم صرف{" "}
+                  <span className="highlight-orange">500</span> روپے ہے
                 </li>
                 <li>
-                  💵 کم از کم واپسی صرف{" "}
-                  <span style={{ color: "orange", fontWeight: "bold" }}>
-                    100
-                  </span>{" "}
-                  روپے ہے!
+                  کم از کم واپسی صرف{" "}
+                  <span className="highlight-orange">100</span> روپے ہے
                 </li>
-                <li>🚫 کوئی واپسی فیس نہیں!</li>
-                <li>🎉 روزانہ مفت پرومو کوڈز صارفین کے لیے!</li>
+                <li>کوئی واپسی فیس نہیں</li>
+                <li>روزانہ مفت پرومو کوڈز صارفین کے لیے</li>
                 <li className="highlight">
-                  📱 ہمارے واٹس ایپ گروپ میں شامل ہوں تازہ ترین اپ ڈیٹس کے لیے!
+                  ہمارے واٹس ایپ گروپ میں شامل ہوں تازہ ترین اپ ڈیٹس کے لیے
                 </li>
-                <li>🏆 رینکنگ انعامات، ہفتہ وار تنخواہ اور کمیشن!</li>
+                <li>رینکنگ انعامات، ہفتہ وار تنخواہ اور کمیشن</li>
                 <li>
-                  ⏰ ڈپازٹ کا وقت{" "}
-                  <span style={{ color: "orange", fontWeight: "bold" }}>
-                    24/7
-                  </span>{" "}
-                  ہے!
+                  ڈپازٹ کا وقت <span className="highlight-orange">24/7</span> ہے
                 </li>
                 <li>
-                  اور واپسی کا وقت صبح{" "}
-                  <span style={{ color: "orange", fontWeight: "bold" }}>
-                    10:00
-                  </span>{" "}
-                  بجے سے شام{" "}
-                  <span style={{ color: "orange", fontWeight: "bold" }}>
-                    8:00
-                  </span>{" "}
-                  بجے تک ہے!
+                  واپسی کا وقت صبح{" "}
+                  <span className="highlight-orange">10:00</span> بجے سے شام{" "}
+                  <span className="highlight-orange">8:00</span> بجے تک ہے
                 </li>
               </ol>
             </div>

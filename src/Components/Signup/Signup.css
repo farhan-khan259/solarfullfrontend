@@ -65,10 +65,13 @@ body {
 }
 
 .form-header p {
-    color: #fc0000;
-    margin: 0;
-    font-size: 15px;
-    font-weight: 500;
+    color: red;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    font-family: 'Noto Nastaliq Urdu', serif;
+    direction: rtl;
+    text-align: center;
+    line-height: 1.8;
 }
 
 /* Labels and Inputs */

@@ -116,7 +116,7 @@ const RichTicket = ({ navigateBack }) => {
       {/* ✅ Back Button + Title in same line */}
       <div className="page-header">
         <FaArrowLeft
-          className="back-icon"
+          className="back-iconrich"
           onClick={() => window.history.back()}
         />
         <h2 className="page-title">🎟️ SolarX Rich Ticket</h2>

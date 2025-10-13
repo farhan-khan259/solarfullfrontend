@@ -66,9 +66,13 @@ body {
 }
 
 .subtitle {
-    color: #fa0202;
+    color: red;
     font-size: 0.9rem;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    font-family: 'Noto Nastaliq Urdu', serif;
+    direction: rtl;
+    text-align: center;
+    line-height: 1.8;
 }
 
 label {

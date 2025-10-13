@@ -1,4 +1,4 @@
-import { FaArrowLeft, FaHeadset, FaWhatsapp } from "react-icons/fa";
+import { FaArrowLeft, FaHeadset, FaTelegram, FaWhatsapp } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import "./Support.css";
 
@@ -45,8 +45,13 @@ export default function Support() {
               rel="noopener noreferrer"
               className="support-card whatsapp-card"
             >
-              <FaWhatsapp className="icon" />
-              <p>WhatsApp Group</p>
+              {/* Use WhatsApp icon for Channel 1, Telegram for Channel 2 */}
+              {index === 0 ? (
+                <FaWhatsapp className="icon" />
+              ) : (
+                <FaTelegram className="icon" />
+              )}
+              <p>{index === 0 ? "WhatsApp Group" : "Telegram Group"}</p>
               <span>Join Everyone</span>
             </a>
 

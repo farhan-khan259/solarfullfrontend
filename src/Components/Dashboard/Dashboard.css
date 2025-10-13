@@ -795,28 +795,41 @@ body {
     cursor: pointer;
 }
 
-/* Body */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&display=swap');
+
 .popup-body {
     padding: 16px;
-    font-size: 14px;
+    font-size: 16px;
     color: #333;
 }
 
-.popup-body ol {
-    padding-left: 18px;
+/* Urdu-specific styling */
+.urdu {
+    font-family: 'Noto Nastaliq Urdu', serif;
+    direction: rtl;
+    text-align: right;
 }
 
-.popup-body li {
+/* Ordered list: right-align numbers */
+.urdu ol {
+    padding-right: 18px;
+    list-style-type: decimal;
+    list-style-position: inside;
+    direction: rtl;
+}
+
+.urdu li {
     margin-bottom: 8px;
-    line-height: 1.4;
+    line-height: 1.6;
 }
 
+/* Highlight class (for WhatsApp line) */
 .popup-body .highlight {
     color: #ff7a00;
     font-weight: bold;
 }
 
-/* Actions */
+/* Buttons */
 .popup-actions {
     display: flex;
     flex-direction: column;
@@ -838,11 +851,6 @@ body {
 
 .popup-btn.orange {
     background: #ff7a00;
-    color: #fff;
-}
-
-.popup-btn.grey {
-    background: #555;
     color: #fff;
 }
 
@@ -959,4 +967,42 @@ body {
         top: -4px;
         right: -4px;
     }
+}
+
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&display=swap');
+
+.popup-body {
+    padding: 16px;
+    font-size: 16px;
+    color: #333;
+}
+
+/* Urdu-specific styles */
+.urdu {
+    font-family: 'Noto Nastaliq Urdu', serif;
+    direction: rtl;
+    text-align: right;
+}
+
+/* Right-aligned numbers */
+.urdu ol {
+    list-style-type: decimal;
+    list-style-position: inside;
+    padding-right: 18px;
+}
+
+.urdu li {
+    margin-bottom: 8px;
+    line-height: 1.6;
+}
+
+.highlight {
+    color: #ff7a00;
+    font-weight: bold;
+}
+
+.highlight-orange {
+    color: orange;
+    font-weight: bold;
 }

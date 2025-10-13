@@ -164,11 +164,14 @@ export default function Investmentplans() {
   useEffect(() => {
     setPlans((prevPlans) => {
       const newPlans = [...prevPlans];
+      // Unlock first 3 plans
       if (newPlans[0]) newPlans[0].locked = false;
       if (newPlans[1]) newPlans[1].locked = false;
+      if (newPlans[2]) newPlans[2].locked = false;
       return newPlans;
     });
 
+    // Then unlock one more every 7 days
     const interval = setInterval(() => {
       setPlans((prevPlans) => {
         const newPlans = [...prevPlans];
@@ -180,7 +183,7 @@ export default function Investmentplans() {
         }
         return newPlans;
       });
-    }, 7 * 24 * 60 * 60 * 1000); // 7 days
+    }, 7 * 24 * 60 * 60 * 1000); // 7 days interval
 
     return () => clearInterval(interval);
   }, []);

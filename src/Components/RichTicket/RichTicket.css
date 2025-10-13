@@ -230,7 +230,7 @@
 }
 
 /* Back Icon perfectly aligned to the start */
-.back-icon {
+.back-iconrich {
     position: absolute;
     left: 20px;
     font-size: 28px;
@@ -239,7 +239,7 @@
     transition: 0.3s ease;
 }
 
-.back-icon:hover {
+.back-iconrich:hover {
     transform: scale(1.15);
     color: var(--accent-color);
 }
