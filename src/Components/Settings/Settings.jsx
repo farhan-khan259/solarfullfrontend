@@ -144,9 +144,9 @@ export default function Settings() {
         <Link to="/ourinfo">
           <MenuItem icon={<FaInfoCircle />} label="Our Information Solar X" />
         </Link>
-        <Link to="/richticket">
+        {/* <Link to="/richticket">
           <MenuItem icon={<FaTicketAlt />} label="Rich Ticket" />
-        </Link>
+        </Link> */}
 
         {/* Logout Menu */}
         <div className="menu-item logout-item" onClick={handleLogoutUser}>
