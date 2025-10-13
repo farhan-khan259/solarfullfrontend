@@ -2,6 +2,7 @@
 import AdminList from "./pages/Admin/AdminList";
 import AdminLogs from "./pages/Admin/AdminLogs";
 import Roles from "./pages/Admin/Roles";
+import AdminTicketDashboard from "./pages/AdminTicketDashboard/AdminTicketDashboard";
 import Announcements from "./pages/CMS/Announcements";
 import Pages from "./pages/CMS/Pages";
 import Templates from "./pages/CMS/Templates";
@@ -60,7 +61,8 @@ const adminRoutes = {
     NotificationSettings,
     AdminList,
     Roles,
-    AdminLogs
+    AdminLogs,
+    AdminTicketDashboard
 };
 
 export default adminRoutes;

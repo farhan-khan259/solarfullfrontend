@@ -10,6 +10,7 @@ import {
   FaUser,
   FaUsers,
 } from "react-icons/fa";
+
 import { MdAssignmentTurnedIn } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -142,6 +143,9 @@ export default function Settings() {
         </Link>
         <Link to="/ourinfo">
           <MenuItem icon={<FaInfoCircle />} label="Our Information Solar X" />
+        </Link>
+        <Link to="/richticket">
+          <MenuItem icon={<FaTicketAlt />} label="Rich Ticket" />
         </Link>
 
         {/* Logout Menu */}

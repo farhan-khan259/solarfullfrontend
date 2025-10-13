@@ -75,7 +75,10 @@ export default function Signup() {
         <div className="form-header">
           <img src={logo} alt="Solar X" className="logo" />
           <h2>Join SOLAR X</h2>
-          <p>Create your account to start earning with Solar X</p>
+          <p>
+            نیچے دی گئی تمام انفارمیشن کو کمپلیٹ کریں،اور اس کے بعد نیچے دیے گئے
+            بٹن کے اوپر کلک کریں۔آپ کا اکاؤنٹ سولر ایکس میں رجسٹر ہو جائے گا
+          </p>
         </div>
 
         <form onSubmit={handleSubmit}>

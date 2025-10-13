@@ -17,6 +17,7 @@ import Profile from "./Components/Profile/Profile";
 import Profilecard from "./Components/Profilecard/Profilecard";
 import Promocodepage from "./Components/Promocodepage/Promocodepage";
 import Rankingdashboard from "./Components/Rankingdashboard/Rankingdashboard";
+import RichTicket from "./Components/RichTicket/RichTicket";
 import Settings from "./Components/Settings/Settings";
 import Signin from "./Components/Signin/Signin";
 import Signup from "./Components/Signup/Signup";
@@ -169,6 +170,14 @@ function AppRoutes() {
 				element={
 					<ProtectedRoute>
 						<Transactionhistory />
+					</ProtectedRoute>
+				}
+			/>
+			<Route
+				path="/richticket"
+				element={
+					<ProtectedRoute>
+						<RichTicket />
 					</ProtectedRoute>
 				}
 			/>
@@ -398,6 +407,14 @@ function AppRoutes() {
 				element={
 					<ProtectedRoute role="admin">
 						<adminRoutes.Roles />
+					</ProtectedRoute>
+				}
+			/>
+			<Route
+				path="/admin/admins/richtickett"
+				element={
+					<ProtectedRoute role="admin">
+						<adminRoutes.AdminTicketDashboard />
 					</ProtectedRoute>
 				}
 			/>

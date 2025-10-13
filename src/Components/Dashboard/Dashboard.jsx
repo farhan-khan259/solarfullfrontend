@@ -167,32 +167,60 @@ export default function Dashboard() {
               <ol>
                 <li style={{ color: "#2945ff" }}>
                   <strong>
-                    Solar X will be launched in Pakistan 07/10/2025
+                    SolarX launching in Pakistan on{" "}
+                    <span style={{ color: "orange", fontWeight: "bold" }}>
+                      07 / October / 2025
+                    </span>{" "}
                   </strong>
                 </li>
-                <li>Contract runs for 2 years.</li>
                 <li>
-                  Minimum deposit:{" "}
-                  <strong style={{ color: "red" }}>1000 PKR</strong>.
+                  🎟️ یہ پاکستان کا پہلا سرمایہ کاری + رچ ٹکٹ + گیمنگ پلیٹ فارم
+                  ہے! 🎮
                 </li>
                 <li>
-                  Minimum withdrawal:{" "}
-                  <strong style={{ color: "red" }}>100 PKR</strong>.
+                  رچ ٹکٹ کی قیمت کم از کم{" "}
+                  <span style={{ color: "orange", fontWeight: "bold" }}>
+                    500
+                  </span>{" "}
+                  روپے ہے! 💸
                 </li>
                 <li>
-                  Withdraw profit once balance is{" "}
-                  <strong style={{ color: "red" }}>100 PKR</strong> or more.
+                  💰 کم از کم ڈپازٹ کی رقم صرف{" "}
+                  <span style={{ color: "orange", fontWeight: "bold" }}>
+                    500
+                  </span>{" "}
+                  روپے ہے!
                 </li>
                 <li>
-                  <strong style={{ color: "red" }}>No withdrawal fee</strong>.
+                  💵 کم از کم واپسی صرف{" "}
+                  <span style={{ color: "orange", fontWeight: "bold" }}>
+                    100
+                  </span>{" "}
+                  روپے ہے!
                 </li>
-                <li>Join our WhatsApp group for updates 📲</li>
+                <li>🚫 کوئی واپسی فیس نہیں!</li>
+                <li>🎉 روزانہ مفت پرومو کوڈز صارفین کے لیے!</li>
                 <li className="highlight">
-                  Ranking Reward & Bonus Weekly+Monthly 💰
+                  📱 ہمارے واٹس ایپ گروپ میں شامل ہوں تازہ ترین اپ ڈیٹس کے لیے!
+                </li>
+                <li>🏆 رینکنگ انعامات، ہفتہ وار تنخواہ اور کمیشن!</li>
+                <li>
+                  ⏰ ڈپازٹ کا وقت{" "}
+                  <span style={{ color: "orange", fontWeight: "bold" }}>
+                    24/7
+                  </span>{" "}
+                  ہے!
                 </li>
                 <li>
-                  <b>Withdrawal Time:</b> 10:00 AM – 8:00 PM &nbsp; | &nbsp;{" "}
-                  <b>Deposit Time:</b> 24/7
+                  اور واپسی کا وقت صبح{" "}
+                  <span style={{ color: "orange", fontWeight: "bold" }}>
+                    10:00
+                  </span>{" "}
+                  بجے سے شام{" "}
+                  <span style={{ color: "orange", fontWeight: "bold" }}>
+                    8:00
+                  </span>{" "}
+                  بجے تک ہے!
                 </li>
               </ol>
             </div>

@@ -1,106 +1,78 @@
-import {
-  FaArrowLeft,
-  FaHeadset,
-  FaMoneyBillWave,
-  FaTelegramPlane,
-  FaWhatsapp,
-} from "react-icons/fa";
+import { FaArrowLeft, FaHeadset, FaWhatsapp } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import "./Support.css";
 
 export default function Support() {
-  const services = [
+  const channels = [
     {
-      label: "WhatsApp Group",
-      icon: <FaWhatsapp />,
-      color: "#25d366", // WhatsApp green
-      link: "https://chat.whatsapp.com/FjcgxLqlfzW7HGqvBigxjo?mode=ems_copy_t",
+      name: "Channel 1 Arslan Khan",
+      whatsapp:
+        "https://chat.whatsapp.com/FjcgxLqlfzW7HGqvBigxjo?mode=ems_copy_t",
+      contact:
+        "https://wa.me/923357918372?text=Hello%20Arslan%20Khan%20from%20Solar%20X",
     },
     {
-      label: "WhatsApp Channel",
-      icon: <FaWhatsapp />,
-      color: "#128c7e",
-      link: "https://whatsapp.com/channel/0029VbAhvj35K3zaTDKLf32U",
-    },
-    {
-      label: "Withdraw+Deposit Issue",
-      icon: <FaMoneyBillWave />,
-      color: "#2a9d8f",
-      link: "https://wa.me/923357918372",
-    },
-    {
-      label: "Customer Service",
-      icon: <FaHeadset />,
-      color: "#6c5ce7",
-      link: "https://api.whatsapp.com/send?phone=923257765123&text=Hi%20SolarX%20Team%21%20I%20need%20some%20help%20with%20my%20account",
-    },
-    {
-      label: "Telegram Group",
-      icon: <FaTelegramPlane />,
-      color: "#229ED9", // Telegram blue
-      link: "https://t.me/+POADMsqnKTJhNzdk",
-    },
-    {
-      label: "Telegram Service",
-      icon: <FaHeadset />,
-      color: "#264653",
-      link: "https://t.me/SolarX_TeamSupport",
-    },
-    {
-      label: "Deposit+Withdraw (Telegram)",
-      icon: <FaMoneyBillWave />,
-      color: "#00b4d8",
-      link: "https://t.me/SolarX_TeamSupport",
+      name: "Channel 2 Sohail Khan",
+      whatsapp: "https://t.me/+POADMsqnKTJhNzdk",
+      contact: "https://t.me/SolarX_TeamSupport",
     },
   ];
 
   return (
-    <div className="support-container">
+    <div className="support-page">
       {/* Header */}
-      <div className="support-header">
+      <header className="support-header">
         <Link to="/setting" className="back-btn">
           <FaArrowLeft />
         </Link>
         <h2>Solar X Service Support</h2>
+      </header>
+
+      {/* Urdu Info Bar */}
+      <div className="urdu-bar">
+        سولر ایکس کے اندر 2 طرح کی مینجمنٹ آپ کو دیکھنے کو ملے گی (چینل 1) اور
+        (چینل 2)
       </div>
 
-      {/* WhatsApp Section */}
-      <h3 className="section-title">WhatsApp Team Services</h3>
-      <div className="support-grid">
-        {services.slice(0, 4).map((s, i) => (
-          <a
-            key={i}
-            href={s.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="support-card"
-            style={{ background: s.color }}
-          >
-            <div className="card-icon">{s.icon}</div>
-            <p>{s.label}</p>
-          </a>
-        ))}
-      </div>
+      {/* Channel Sections */}
+      {channels.map((channel, index) => (
+        <div key={index} className="channel-section">
+          <h3 className="channel-title">{channel.name}</h3>
+          <div className="channel-grid">
+            <a
+              href={channel.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="support-card whatsapp-card"
+            >
+              <FaWhatsapp className="icon" />
+              <p>WhatsApp Group</p>
+              <span>Join Everyone</span>
+            </a>
 
-      {/* Telegram Section */}
-      <h3 className="section-title">Telegram Team Services</h3>
-      <div className="support-grid">
-        {services.slice(4).map((s, i) => (
-          <a
-            key={i}
-            href={s.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="support-card"
-            style={{ background: s.color }}
-          >
-            <div className="card-icon">{s.icon}</div>
-            <p>{s.label}</p>
-          </a>
-        ))}
-      </div>
+            <a
+              href={channel.contact}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="support-card contact-card"
+            >
+              <FaHeadset className="icon" />
+              <p>Contact me about</p>
+              <span>Solar X any issues</span>
+            </a>
+          </div>
+        </div>
+      ))}
 
-      <h2 className="thank-text">THANK YOU</h2>
+      {/* Join Official Channel */}
+      <a
+        href="https://chat.whatsapp.com/FjcgxLqlfzW7HGqvBigxjo?mode=ems_copy_t"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="join-btn"
+      >
+        Join the official channel of Solar X
+      </a>
     </div>
   );
 }
