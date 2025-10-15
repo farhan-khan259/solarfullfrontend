@@ -973,7 +973,7 @@ body {
 @import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&display=swap');
 
 .popup-body {
-    padding: 16px;
+    padding: 10px;
     font-size: 16px;
     color: #333;
 }
