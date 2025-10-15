@@ -19,8 +19,8 @@ import "./Dashboard.css";
 import img2 from "../../Assets/Pictures/2new.jpeg";
 import img1 from "../../Assets/Pictures/dash1.jpeg";
 import img3 from "../../Assets/Pictures/dash3.jpeg";
-import img4 from "../../Assets/Pictures/dash4.jpeg";
 import profileImg from "../../Assets/Pictures/download.jpeg";
+import img4 from "../../Assets/Pictures/richticketdash.jpeg";
 import Newsboard from "../Newsboard/Newsboard";
 
 const slides = [
@@ -185,10 +185,7 @@ export default function Dashboard() {
                   کم از کم ڈپازٹ کی رقم صرف{" "}
                   <span className="highlight-orange">500</span> روپے ہے
                 </li>
-                <li>
-                  کم از کم واپسی صرف{" "}
-                  <span className="highlight-orange">100</span> روپے ہے
-                </li>
+                <li style={{ color: "red" }}>کم از کم واپسی صرف 500 روپے ہے</li>
                 <li>کوئی واپسی فیس نہیں</li>
                 <li>روزانہ مفت پرومو کوڈز صارفین کے لیے</li>
                 <li className="highlight">

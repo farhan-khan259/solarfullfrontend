@@ -65,8 +65,8 @@ const Withdrawfunds = () => {
 
   // ✅ Withdraw handler (deduct instantly from DB & UI)
   const handleSubmit = async () => {
-    if (!amount || Number(amount) < 100) {
-      setErrorMessage("Minimum withdrawal amount is 100 PKR");
+    if (!amount || Number(amount) < 500) {
+      setErrorMessage("Minimum withdrawal amount is 500 PKR");
       setShowError(true);
       return;
     }
@@ -160,7 +160,9 @@ const Withdrawfunds = () => {
         </h3>
         <p className="available-btn3">Withdrawals Available Anytime</p>
         <p className="service-note3">
-          Your withdrawal will be credited to your account within 6-12 hours.
+          Now withdrawals system is auto Your withdrawal will be processed
+          automatically within 5 to 10 minutes! ⏳💸 The minimum withdrawal
+          amount range is 500!
         </p>
       </div>
 
@@ -173,10 +175,10 @@ const Withdrawfunds = () => {
         <input
           className="amount-input3"
           type="number"
-          placeholder="Enter amount (Min 100)"
+          placeholder="Enter amount (Min 500)"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
-          min="100"
+          min="500"
         />
 
         <button

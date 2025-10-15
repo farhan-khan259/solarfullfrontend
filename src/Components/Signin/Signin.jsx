@@ -220,8 +220,8 @@ export default function Signin() {
       <div className="login-box">
         <img src={logo} alt="Solar X Logo" className="bot-icon" />
         <h2 className="title">WELCOME BACK!</h2>
-       <p className="subtitle">
-          خوش امدید اپ کا اکاؤنٹ سولر ایکس کمپنی میں رجسٹر ہو گیا ہے اپنے اکاؤنٹ
+        <p className="subtitle">
+          خوش امدید آپ کا اکاؤنٹ سولر ایکس کمپنی میں رجسٹر ہو گیا ہے اپنے اکاؤنٹ
           کو لاگ ان کرو اور اج سے ہی اپنی ارننگ شروع کرو
         </p>
 
