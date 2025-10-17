@@ -19,6 +19,7 @@
 // import img2 from "../../Assets/Pictures/2new.jpeg";
 // import img1 from "../../Assets/Pictures/dash1.jpeg";
 // import img3 from "../../Assets/Pictures/dash3.jpeg";
+// import img5 from "../../Assets/Pictures/dash5.jpeg";
 // import profileImg from "../../Assets/Pictures/download.jpeg";
 // import img4 from "../../Assets/Pictures/richticketdash.jpeg";
 // import Newsboard from "../Newsboard/Newsboard";
@@ -53,6 +54,15 @@
 //   },
 //   {
 //     image: img4,
+//     title: "NextGen Solar Vault",
+//     subtitle: "Future-Proof, Zero-Emission Mining",
+//     profit: "$810/day",
+//     hashpower: "5100+ TH/s",
+//     description:
+//       "Solar-powered mining facility with smart energy balancing and uptime optimization.",
+//   },
+//   {
+//     image: img5,
 //     title: "NextGen Solar Vault",
 //     subtitle: "Future-Proof, Zero-Emission Mining",
 //     profit: "$810/day",
@@ -118,11 +128,16 @@
 //   }, []);
 
 //   useEffect(() => {
-//     const interval = setInterval(() => {
-//       setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
-//     }, 4000);
-//     return () => clearInterval(interval);
+//     startAutoSlide();
+//     return () => clearInterval(window.solarXInterval);
 //   }, []);
+
+//   const startAutoSlide = () => {
+//     clearInterval(window.solarXInterval);
+//     window.solarXInterval = setInterval(() => {
+//       setCurrentIndex((prev) => (prev + 1) % slides.length);
+//     }, 5000);
+//   };
 
 //   useEffect(() => {
 //     const fetchAnnouncements = async () => {
@@ -163,59 +178,55 @@
 //                 ✖
 //               </button>
 //             </div>
-//             <div className="popup-body urdu">
+//             <div className="popup-body english">
 //               <ol>
 //                 <li>
-//                   <strong>
-//                     <span className="highlight-orange">
-//                       شروع ہونے کی تاریخ: سولر ایکس پاکستان میں 7 اکتوبر کو شروع
-//                       ہوا ہے۔
-//                     </span>
-//                   </strong>
+//                   <strong>Launch Date</strong>: Solar X will launch in Pakistan
+//                   on
+//                   <span className="highlight-orange"> October 7, 2025</span>.
 //                 </li>
 //                 <li>
-//                   رقم نکالنے کا وقت: آپ صبح{" "}
-//                   <span className="highlight-orange">10</span> بجے سے شام{" "}
-//                   <span className="highlight-orange">8</span> بجے تک رقم نکالنے
-//                   کی درخواست دے سکتے ہیں۔
+//                   You can withdraw money from
+//                   <span className="highlight-orange"> 10 AM to 8 PM</span>.
 //                 </li>
 //                 <li>
-//                   رقم کی ترسیل: آپ کی رقم{" "}
-//                   <span className="highlight-orange">10</span> سے{" "}
-//                   <span className="highlight-orange">20</span> منٹ میں آپ کے
-//                   بینک اکاؤنٹ میں پہنچ جائے گی۔ اگر نہیں پہنچتی تو کسٹمر سروس سے
-//                   رابطہ کریں۔
+//                   Your money will reach your bank account within
+//                   <span className="highlight-orange"> 5 to 10 minutes</span>. If
+//                   it doesn't, please contact customer service.
 //                 </li>
 //                 <li>
-//                   کم سے کم رقم: آپ کم از کم{" "}
-//                   <span className="highlight-orange">500</span> روپے نکال سکتے
-//                   ہیں۔
+//                   You can withdraw a minimum of
+//                   <span className="highlight-orange"> 500 PKR</span>.
 //                 </li>
 //                 <li>
-//                   رچ ٹکٹ کی قیمت: رچ ٹکٹ کی قیمت بھی کم از کم{" "}
-//                   <span className="highlight-orange">500</span> روپے ہے۔
+//                   The minimum deposit is also
+//                   <span className="highlight-orange"> 500 PKR</span>.
 //                 </li>
 //                 <li>
-//                   بونس: اگر آپ سولر ایکس کو زیادہ لوگوں تک پہنچاتے ہیں تو آپ کو
-//                   اضافی <span className="highlight-orange">بونس</span> ملے گا۔
+//                   The price of a Rich Ticket is also a minimum of
+//                   <span className="highlight-orange"> 500 PKR</span>.
 //                 </li>
 //                 <li>
-//                   پرومو کوڈ: روزانہ <span className="highlight-orange">10</span>{" "}
-//                   بجے VIP گروپ میں پرومو کوڈ شیئر کیا جائے گا۔
+//                   You will receive additional bonuses for referring more people
+//                   to Solar X.
 //                 </li>
 //                 <li>
-//                   انعامات: رینکنگ انعامات، ڈپوزٹ کمیشن، اور دیگر انعامات
-//                   ایپلیکیشن میں موجود ہیں۔
+//                   A promo code will be shared daily at
+//                   <span className="highlight-orange"> 10 PM</span> in the VIP
+//                   group.
 //                 </li>
 //                 <li>
-//                   مزید معلومات: مزید معلومات کے لیے{" "}
-//                   <span className="highlight-orange">
-//                     سولر ایکس کا گروپ جوائن
-//                   </span>{" "}
-//                   کرنا نہ بھولیں۔
+//                   You can earn ranking rewards, deposit commissions, and other
+//                   rewards in the application.
+//                 </li>
+//                 <li>
+//                   Don’t forget to join the
+//                   <span className="highlight-orange"> Solar X group</span> for
+//                   more information.
 //                 </li>
 //               </ol>
 //             </div>
+
 //             <div className="popup-actions">
 //               <a
 //                 href="https://chat.whatsapp.com/FjcgxLqlfzW7HGqvBigxjo?mode=ems_copy_t"
@@ -439,10 +450,10 @@ import { Link } from "react-router-dom";
 
 import "./Dashboard.css";
 
-import img2 from "../../Assets/Pictures/2new.jpeg";
-import img1 from "../../Assets/Pictures/dash1.jpeg";
-import img3 from "../../Assets/Pictures/dash3.jpeg";
 import img5 from "../../Assets/Pictures/dash5.jpeg";
+import img2 from "../../Assets/Pictures/dashnewupdatepic1.jpeg";
+import img1 from "../../Assets/Pictures/dashnewupdatepic2.jpeg";
+import img3 from "../../Assets/Pictures/dashnewupdatepic3.jpeg";
 import profileImg from "../../Assets/Pictures/download.jpeg";
 import img4 from "../../Assets/Pictures/richticketdash.jpeg";
 import Newsboard from "../Newsboard/Newsboard";
@@ -613,9 +624,8 @@ export default function Dashboard() {
                   <span className="highlight-orange"> 10 AM to 8 PM</span>.
                 </li>
                 <li>
-                  Your money will reach your bank account within
-                  <span className="highlight-orange"> 5 to 10 minutes</span>. If
-                  it doesn't, please contact customer service.
+                  Your withdrawal will be credited to your account within{" "}
+                  <span className="highlight-orange">6-12 hours.</span>
                 </li>
                 <li>
                   You can withdraw a minimum of
@@ -671,6 +681,12 @@ export default function Dashboard() {
       )}
 
       {/* Header */}
+      <div className="top-banner">
+        <p>
+          Claim smart watches, iPhone 17 Pro Max, bikes, Dubai tour and many
+          more!!! 💸
+        </p>
+      </div>
       <header className="headerd">
         <div className="header-leftd">
           <img
@@ -683,10 +699,13 @@ export default function Dashboard() {
             onClick={() => setShowProfilePopup(!showProfilePopup)}
             alt="Profile"
           />
+          <div className="welcome-text">
+            <p>Welcome Back,</p>
+            <h3>{user?.fullName || "User"}</h3>
+          </div>
         </div>
-        <div className="header-centerd">
-          <h1 className="header-titled">SOLAR X DASHBOARD</h1>
-        </div>
+
+        <div className="header-centerd"></div>
         <div className="header-rightd">
           <div className="notification-wrapper">
             <div
@@ -735,6 +754,7 @@ export default function Dashboard() {
       </header>
 
       {/* Slider */}
+
       <div className="slider-container">
         <img src={image} alt={title} className="slider-image" />
         <button

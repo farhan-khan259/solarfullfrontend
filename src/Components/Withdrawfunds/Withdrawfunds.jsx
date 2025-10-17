@@ -160,9 +160,8 @@ const Withdrawfunds = () => {
         </h3>
         <p className="available-btn3">Withdrawals Available Anytime</p>
         <p className="service-note3">
-          Now withdrawals system is auto Your withdrawal will be processed
-          automatically within 5 to 10 minutes! ⏳💸 The minimum withdrawal
-          amount range is 500!
+          Your withdrawal will be credited to your account within{" "}
+          <span className="highlight-orange">6-12 hours.</span>
         </p>
       </div>
 

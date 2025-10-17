@@ -1,38 +1,45 @@
-// Partners.js
+import { useEffect, useRef } from "react";
+import partnerVideo from "../../Assets/Pictures/dashvideo.MP4";
 import "./Newsboard.css";
 
-// Import your local images (replace paths with yours later)
-import binance from "../../Assets/Pictures/Binance Smart Chain Icon.svg";
-import bitget from "../../Assets/Pictures/Bitget.png";
-import bybit from "../../Assets/Pictures/Bybit.svg";
-import coinbase from "../../Assets/Pictures/Coinbase New 2021.svg";
-import crypto from "../../Assets/Pictures/crypto-com-coin-cro-logo.png";
-import kraken from "../../Assets/Pictures/Kraken Icon.png";
-
-import okx from "../../Assets/Pictures/OKX Blockdream Ventures.png";
-import uniswap from "../../Assets/Pictures/uniswap-uni-logo.png";
-
-const partners = [
-  { name: "Uniswap", logo: uniswap },
-  { name: "Crypto.com", logo: crypto },
-  { name: "Bybit", logo: bybit },
-  { name: "Coinbase", logo: coinbase },
-  { name: "Bitget", logo: bitget },
-  { name: "Kraken", logo: kraken },
-  { name: "OKX", logo: okx },
-  { name: "Binance", logo: binance },
-];
-
 export default function Newsboard() {
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    // Wait for the video metadata to load before trying to play
+    const playVideo = () => {
+      video.play().catch((err) => {
+        console.log(
+          "Autoplay with sound blocked, muting video as fallback.",
+          err
+        );
+        video.muted = true;
+        video.play().catch(() => {});
+      });
+    };
+
+    // Only attempt to play after metadata loaded
+    video.addEventListener("loadedmetadata", playVideo);
+
+    return () => {
+      video.removeEventListener("loadedmetadata", playVideo);
+    };
+  }, []);
+
   return (
     <div className="partners-section">
-      <h2 className="partners-title">Our Investment Partners</h2>
       <div className="partners-grid">
-        {partners.map((partner, i) => (
-          <div key={i} className="partner-box">
-            <img src={partner.logo} alt={partner.name} />
-          </div>
-        ))}
+        <video
+          ref={videoRef}
+          src={partnerVideo}
+          autoPlay
+          muted={false} // attempt to play with sound
+          loop
+          className="partner-video"
+        />
       </div>
     </div>
   );
