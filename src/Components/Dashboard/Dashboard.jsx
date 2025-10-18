@@ -662,7 +662,7 @@ export default function Dashboard() {
 
             <div className="popup-actions">
               <a
-                href="https://chat.whatsapp.com/FjcgxLqlfzW7HGqvBigxjo?mode=ems_copy_t"
+                href="https://chat.whatsapp.com/E3V0WcJKMru954hzfPIGMy?mode=wwt"
                 target="_blank"
                 rel="noreferrer"
                 className="popup-btn orange"

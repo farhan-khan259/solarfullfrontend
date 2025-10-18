@@ -83,7 +83,7 @@ const Promocodepage = () => {
           </b>
         </p>
         <button className="join-btn">
-          <Link to="https://whatsapp.com/channel/0029VbAhvj35K3zaTDKLf32U">
+          <Link to="https://chat.whatsapp.com/E3V0WcJKMru954hzfPIGMy?mode=wwt">
             <FaLink /> Join Channel
           </Link>
         </button>

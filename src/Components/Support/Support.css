@@ -1,18 +1,20 @@
 :root {
-    --purple: #6c00ff;
-    --orange: #ff914d;
-    --green: #25d366;
-    --shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    --green: #23d366;
+    --red: #ff3b30;
+    --orange: #ffad33;
+    --text-dark: #111;
+    --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     --radius: 14px;
 }
 
-.support-page {
+/* Container */
+.support-container {
     max-width: 480px;
     margin: 0 auto;
-    padding: 1.5rem;
-    text-align: center;
-    background: #f9fafc;
+    background: #f6f8fb;
     min-height: 100vh;
+    padding: 1.5rem 1rem;
+    text-align: center;
 }
 
 /* Header */
@@ -21,70 +23,56 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    margin-bottom: 1rem;
+    margin-bottom: 1.2rem;
 }
 
 .support-header h2 {
     font-size: 20px;
     font-weight: 700;
-    color: #111;
+    color: var(--text-dark);
 }
 
 .back-btn {
     position: absolute;
     left: 0;
     font-size: 20px;
-    color: var(--purple);
+    color: #4a00e0;
     text-decoration: none;
 }
 
-/* Urdu Info Bar */
-.urdu-bar {
-    background: var(--purple);
+/* Green Urdu Box */
+.urdu-green-box {
+    background: var(--green);
     color: white;
-    border-radius: var(--radius);
-    padding: 0.7rem;
-    font-size: 15px;
-    font-weight: 500;
-    line-height: 1.5;
-    margin-bottom: 1.5rem;
-}
-
-/* Channel Section */
-.channel-section {
-    margin-bottom: 1.8rem;
-}
-
-.channel-title {
-    background: var(--purple);
-    color: white;
-    border-radius: var(--radius);
-    padding: 0.5rem 1rem;
-    font-weight: 700;
     font-size: 16px;
-    display: inline-block;
-    margin-bottom: 1rem;
+    line-height: 1.6;
+    font-weight: 500;
+    border-radius: var(--radius);
+    padding: 0.8rem 1rem;
+    margin-bottom: 1.5rem;
+    direction: rtl;
 }
 
-.channel-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1rem;
-    justify-content: center;
-}
-
-/* Cards */
-.support-card {
+/* Cards Container */
+.support-cards {
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-    text-decoration: none;
+    align-items: stretch;
+    gap: 1rem;
+
+}
+
+/* Card Base */
+.support-card {
+    flex: 1;
+    min-width: 150px;
     border-radius: var(--radius);
     box-shadow: var(--shadow);
     padding: 1rem;
     color: #fff;
+    text-align: center;
     font-weight: 600;
+    text-decoration: none;
     transition: transform 0.3s ease;
 }
 
@@ -92,70 +80,56 @@
     transform: translateY(-5px);
 }
 
-.icon {
-    font-size: 2rem;
+/* Red Offer Card */
+.red-card {
+    background: var(--red);
+}
+
+.red-card h3 {
+    font-size: 1.4rem;
+    line-height: 1.2;
     margin-bottom: 0.5rem;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-.support-card p {
-    margin: 0;
-    font-size: 0.95rem;
+.red-card p {
+    font-size: 14px;
+    direction: rtl;
 }
 
-.support-card span {
-    font-size: 0.8rem;
-    opacity: 0.9;
-}
-
-/* Specific Styles */
-.whatsapp-card {
-    background: var(--green);
-}
-
-.contact-card {
+/* Orange Support Card */
+.orange-card {
     background: var(--orange);
 }
 
-/* Join Button */
-.join-btn {
-    display: block;
-    background: var(--purple);
-    color: white;
-    padding: 1rem;
-    border-radius: var(--radius);
-    font-weight: 700;
-    text-decoration: none;
-    box-shadow: var(--shadow);
-    font-size: 1rem;
-    margin: 1rem auto;
-    width: 100%;
-    max-width: 400px;
-    transition: background 0.3s ease;
+.orange-card p {
+    font-size: 14px;
+    direction: rtl;
+    margin-top: 0.5rem;
 }
 
-.join-btn:hover {
-    background: #5800cc;
+.support-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.4rem;
 }
 
 /* Responsive */
 @media (max-width: 480px) {
-    .urdu-bar {
-        font-size: 13px;
-    }
-
     .support-header h2 {
         font-size: 18px;
     }
 
+    .urdu-green-box {
+        font-size: 14px;
+        padding: 0.7rem;
+    }
+
     .support-card {
-        padding: 0.8rem;
+        flex: 1 1 100%;
+        max-width: 100%;
     }
 
-    .icon {
-        font-size: 1.8rem;
-    }
-
-    .join-btn {
-        font-size: 0.95rem;
+    .support-icon {
+        font-size: 2rem;
     }
 }
